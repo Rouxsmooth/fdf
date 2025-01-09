@@ -9,13 +9,13 @@ int	main(void)
 	int		map;
 
 	i = 0;
-	map = open("test.txt", O_RDONLY);
+	map = open("maps/test_maps/mars.fdf", O_RDONLY);
 	while ((line = get_next_line(map)))
 		printf("l%d : '%s'\n", i++, line); free(line);
 	close(map);
-	map = open("test.txt", O_RDONLY);
-	while ((line = get_next_line(map)))
-		printf("l%d : '%s'\n", i++, line); free(line);
-	close(map);
+	//map = open("test.txt", O_RDONLY);
+	//while ((line = get_next_line(map)))
+	//	printf("l%d : '%s'\n", i++, line); free(line);
+	//close(map);
 	
 }

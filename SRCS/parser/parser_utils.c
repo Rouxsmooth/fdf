@@ -6,11 +6,11 @@
 /*   By: mzaian <mzaian@student.42perpignan.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 16:04:24 by mzaian            #+#    #+#             */
-/*   Updated: 2025/01/24 16:11:21 by mzaian           ###   ########.fr       */
+/*   Updated: 2025/01/25 13:38:46 by mzaian           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../INCLUDES/fdf.h"
+#include "../../INCLUDES/fdf.h"
 
 int	alloc_error(void)
 {
@@ -79,16 +79,16 @@ int	get_itemcount(char *curr_line)
 	return (item_count);
 }
 
-char	***create_array(t_vals *window)
+char	***create_array(t_vals *vals)
 {
 	char	***array;
 	int		i;
 
-	array = (char ***) ft_calloc(window->y + 1, sizeof(char **));
+	array = (char ***) ft_calloc(vals->y + 1, sizeof(char **));
 	i = 0;
-	while (i < window->y)
+	while (i < vals->y)
 	{
-		array[i] = (char **) ft_calloc(window->x + 1, sizeof(char **));
+		array[i] = (char **) ft_calloc(vals->x + 1, sizeof(char **));
 		i++;
 	}
 	return (array);

@@ -6,7 +6,7 @@
 /*   By: mzaian <mzaian@student.42perpignan.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 10:35:22 by mzaian            #+#    #+#             */
-/*   Updated: 2025/01/26 18:36:46 by mzaian           ###   ########.fr       */
+/*   Updated: 2025/01/28 03:31:51 by mzaian           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 void	vals_del(t_vals *vals)
 {
 	printf("deleting array...\n");
-	if (vals->array || *(vals->array) || **(vals->array))
-		clear_3d_array(vals->array);
-	printf("deleted array. destroying window...\n");
+	if (vals->array)
+		clear_3d_array((void ***) vals->array, vals->y);
+	printf("%s. destroying window...\n", *(vals->array) ? "not deleted array" : "destroyed array");
 	return ;
 }
 
@@ -40,7 +40,7 @@ void	mlx_del(t_vals *vals)
 	return ;
 }
 //del mlx_vals, image, link etc
-//mlx clear is mlx destroy vals - > mlx destroy img -> mlx destroydisplay 
+//mlx clear is mlx destroy vals -> mlx destroy img -> mlx destroydisplay 
 //+ freet_vals->mlx
 
 void	quit(char *error_msg, t_vals *vals)
@@ -61,10 +61,10 @@ int	main(int argc, char **argv)
 					argc < 2)));
 	vals->array = map_parser(argv[1], vals);
 	if (!(vals->array))
-		return (display_error("Parsing error!"));
+		quit("Parsing error!", vals);
 	vals->mlx = mlx_init();
-	vals->width = 1336;
-	vals->height = 768;
+	vals->width = 668;
+	vals->height = 384;
 	vals->win = mlx_new_window(vals->mlx, vals->width, vals->height,
 				set_title(argv[1]));
 	vals->img = mlx_new_image(vals->mlx, vals->width, vals->height);

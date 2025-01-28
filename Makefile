@@ -44,6 +44,6 @@ rec: fclean allc
 	@make rec -C $(LIBFT_DIR)
 
 rerun: rec
-	@cc $(CFLAGS) SRCS/main.c $(INCLUDE_LIBFT) $(INCLUDE_MLX) -L . -l:$(LIBNAME) -o $(NAME)
+	@cc SRCS/main.c -L. -l:fdf.a $(INCLUDE_MLX) $(INCLUDE_LIBFT) -lX11 -lXext -o fdf
 
 re : fclean $(LIBNAME)

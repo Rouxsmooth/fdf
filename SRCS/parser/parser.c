@@ -6,7 +6,7 @@
 /*   By: mzaian <mzaian@student.42perpignan.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 16:02:27 by mzaian            #+#    #+#             */
-/*   Updated: 2025/01/26 19:03:45 by mzaian           ###   ########.fr       */
+/*   Updated: 2025/01/28 01:30:43 by mzaian           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,18 +47,18 @@ char	***get_array(int fd, t_vals *vals, char ***array)
 
 	curr_line = get_next_line(fd);
 	if (!array || !*array || !curr_line)
-		return ((ft_del(array), ft_del(curr_line), quit("Allocation error", vals)), NULL);
+		return ((close(fd), ft_del(array), ft_del(curr_line), quit("Allocation error", vals)), NULL);
 	i = 0;
 	while (i < vals->y)
 	{
 		if (array_loop(curr_line, array, i) == -1)
-			return (ft_del(curr_line), NULL);
+			return ((close(fd), ft_del(curr_line)), NULL);
 		curr_line = get_next_line(fd);
-		if (!array || !*array || !curr_line)
-			return ((ft_del(array), ft_del(curr_line), quit("Allocation error", vals)), NULL);
+		if (!array || !*array)
+			return ((close(fd), ft_del(array), ft_del(curr_line), quit("Allocation error", vals)), NULL);
 		i++;
 	}
-	free(curr_line);
+	close(fd);
 	return (array);
 }
 
@@ -85,7 +85,6 @@ int	parse_loop(int fd, t_vals *vals)
 char	***map_parser(char *map, t_vals *vals)
 {
 	int		fd;
-	char	***array;
 
 	fd = get_map(map);
 	if (fd == -1)
@@ -100,9 +99,5 @@ char	***map_parser(char *map, t_vals *vals)
 	}
 	close(fd);
 	fd = get_map(map);
-	array = get_array(fd, vals, create_array(vals));
-	close(fd);
-	if (!array)
-		quit("Allocation error", vals);
-	return (array);
+	return (get_array(fd, vals, create_array(vals)));
 }

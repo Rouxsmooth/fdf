@@ -6,7 +6,7 @@
 /*   By: mzaian <mzaian@student.42perpignan.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 16:04:24 by mzaian            #+#    #+#             */
-/*   Updated: 2025/01/28 01:18:27 by mzaian           ###   ########.fr       */
+/*   Updated: 2025/01/30 12:15:10 by mzaian           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ int	get_map(char *map)
 {
 	int		fd;
 	char	*mappath;
+	char	*temp;
 
 	mappath = ft_strjoin(".maps/", map);
 	if (!mappath)
@@ -43,12 +44,14 @@ int	get_map(char *map)
 	fd = open(mappath, O_RDONLY);
 	if (fd != -1)
 		return (ft_del(mappath), fd);
-	mappath = ft_strjoin(mappath, ".fdf");
-	fd = open(mappath, O_RDONLY);
+	temp = ft_strjoin(mappath, ".fdf");
+	ft_del(mappath);
+	fd = open(temp, O_RDONLY);
+	ft_del(temp);
 	if (fd != -1)
-		return (ft_del(mappath), fd);
+		return (fd);
 	fd = open(map, O_RDONLY);
-	return (ft_del(mappath), fd);
+	return (fd);
 }
 
 int	get_itemcount(char *curr_line)
@@ -72,7 +75,7 @@ int	get_itemcount(char *curr_line)
 			i--;
 		if (curr_line[i + 1] == ' ' && curr_line[i])
 			item_count++;
-		while (curr_line[i] && !(curr_line[i] == ' '))
+		while (i > -1 && curr_line[i] != ' ')
 			i--;
 		i--;
 	}
@@ -88,7 +91,7 @@ char	***create_array(t_vals *vals)
 	i = 0;
 	while (i < vals->y)
 	{
-		array[i] = (char **) ft_calloc(vals->x + 1, sizeof(char **));
+		array[i] = (char **) ft_calloc(vals->x + 1, sizeof(char *));
 		if (!array[i])
 			quit("Allocation error", vals);
 		i++;

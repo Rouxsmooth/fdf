@@ -6,7 +6,7 @@
 /*   By: mzaian <mzaian@student.42perpignan.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 11:09:37 by mzaian            #+#    #+#             */
-/*   Updated: 2025/01/26 18:47:21 by mzaian           ###   ########.fr       */
+/*   Updated: 2025/01/30 11:15:40 by mzaian           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ typedef struct s_vals
 	void	*img;
 	int		width;
 	int		height;
+	char	*title;
 	char	***array;
 	//image & window
 }	t_vals;

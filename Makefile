@@ -3,7 +3,7 @@ LIBNAME = $(NAME).a
 LIBFT_DIR = ../libft
 INCLUDE_LIBFT = -L $(LIBFT_DIR) -l:libft.a
 INCLUDE_MLX = -L .mlx -l:libmlx.a  -lX11 -lXext
-CFLAGS = -Wall -Werror -Wextra 
+CFLAGS = -Wall -Werror -Wextra -g
 
 CFILES = SRCS/hooks/hooks.c SRCS/hooks/hooks_event.c SRCS/parser/parser.c SRCS/parser/parser_utils.c SRCS/main.c
 OFILES = $(CFILES:.c=.o)
@@ -16,7 +16,7 @@ $(LIBNAME) : $(OFILES)
 	@ar -rc $(LIBNAME) $(OFILES)
 
 %.o : %.c compiled
-	@cc $(CFLAGS) -I INCLUDES -c $< -o $@ $(INCLUDE_LIBFT) $(INCLUDE_MLX)
+	@cc $(CFLAGS) -I INCLUDES -c $< -o $@
 
 compiled :
 	@echo "All $(LIBNAME) files compiled."
@@ -44,6 +44,6 @@ rec: fclean allc
 	@make rec -C $(LIBFT_DIR)
 
 rerun: rec
-	@cc SRCS/main.c -L. -l:fdf.a $(INCLUDE_MLX) $(INCLUDE_LIBFT) -lX11 -lXext -o fdf
+	@cc SRCS/main.c -L. -l:fdf.a $(INCLUDE_MLX) $(INCLUDE_LIBFT) -lX11 -lXext -o fdf -g
 
 re : fclean $(LIBNAME)

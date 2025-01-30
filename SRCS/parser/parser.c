@@ -6,7 +6,7 @@
 /*   By: mzaian <mzaian@student.42perpignan.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 16:02:27 by mzaian            #+#    #+#             */
-/*   Updated: 2025/01/28 01:30:43 by mzaian           ###   ########.fr       */
+/*   Updated: 2025/01/30 12:06:21 by mzaian           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ char	***get_array(int fd, t_vals *vals, char ***array)
 		i++;
 	}
 	close(fd);
-	return (array);
+	return (ft_del(curr_line), array);
 }
 
 int	parse_loop(int fd, t_vals *vals)
@@ -99,5 +99,7 @@ char	***map_parser(char *map, t_vals *vals)
 	}
 	close(fd);
 	fd = get_map(map);
+	if (fd == -1)
+		return (display_error("Map not found."), NULL);
 	return (get_array(fd, vals, create_array(vals)));
 }

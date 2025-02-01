@@ -6,7 +6,7 @@
 /*   By: mzaian <mzaian@student.42perpignan.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 16:02:27 by mzaian            #+#    #+#             */
-/*   Updated: 2025/01/30 12:06:21 by mzaian           ###   ########.fr       */
+/*   Updated: 2025/01/31 13:32:35 by mzaian           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ char	***get_array(int fd, t_vals *vals, char ***array)
 	{
 		if (array_loop(curr_line, array, i) == -1)
 			return ((close(fd), ft_del(curr_line)), NULL);
+		ft_del(curr_line);
 		curr_line = get_next_line(fd);
 		if (!array || !*array)
 			return ((close(fd), ft_del(array), ft_del(curr_line), quit("Allocation error", vals)), NULL);
@@ -76,6 +77,7 @@ int	parse_loop(int fd, t_vals *vals)
 		if ((int) item_count != vals->x && vals->y != 0)
 			return (ft_del(curr_line), -1);
 		vals->x = item_count;
+		ft_del(curr_line);
 		curr_line = get_next_line(fd);
 		vals->y++;
 	}

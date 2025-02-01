@@ -6,7 +6,7 @@
 /*   By: mzaian <mzaian@student.42perpignan.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 10:35:22 by mzaian            #+#    #+#             */
-/*   Updated: 2025/01/30 11:46:52 by mzaian           ###   ########.fr       */
+/*   Updated: 2025/02/01 03:29:58 by mzaian           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,18 @@
 
 void	vals_del(t_vals *vals)
 {
-	printf("deleting array...\n");
+	int	*insidelens;
+	int	i;
+
 	if (vals->array)
-		del_3d_array((void ***) vals->array, vals->y);
-	//printf("%s. destroying window...\n", *(vals->array) ? "not deleted array" : "destroyed array");
+	{
+		i = 0;
+		insidelens = (int *) ft_calloc(vals->y, sizeof(int));
+		while (i < vals->y)
+			insidelens[i++] = vals->x;
+		del_3d_array((void ***) vals->array, vals->y, insidelens);
+		ft_del(insidelens);
+	}
 	return ;
 }
 
@@ -26,16 +34,12 @@ void	mlx_del(t_vals *vals)
 	vals_del(vals);
 	if (vals->mlx && vals->win)
 		mlx_destroy_window(vals->mlx, vals->win);
-	printf("destroyed window. destroying img...\n");
 	if (vals->mlx && vals->img)
 		mlx_destroy_image(vals->mlx, vals->img);
-	printf("destroyed img. destroying display...\n");
 	if (vals->mlx)
 	{
 		mlx_destroy_display(vals->mlx);
-		printf("destroyed display. freeing mlx...\n");
 		free(vals->mlx);
-		printf("freed mlx\n");
 	}
 	return (ft_del(vals));
 }

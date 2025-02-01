@@ -26,10 +26,12 @@ all: $(LIBNAME)
 
 clean :
 	@make clean -C $(LIBFT_DIR)
+	@make clean -C .mlx
 	@rm -f $(OFILES) $(NAME) && echo "$(LIBNAME) object files cleaned.\n"
 
 fclean:
 	@make fclean -C $(LIBFT_DIR)
+	@make clean -C .mlx
 	@rm -f $(OFILES) $(LIBNAME) $(NAME) && echo "$(LIBNAME) cleaned.\n"
 
 re: fclean all

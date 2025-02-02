@@ -6,7 +6,7 @@
 /*   By: mzaian <mzaian@student.42perpignan.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 16:02:27 by mzaian            #+#    #+#             */
-/*   Updated: 2025/01/31 13:32:35 by mzaian           ###   ########.fr       */
+/*   Updated: 2025/02/01 04:01:22 by mzaian           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,8 @@ char	***get_array(int fd, t_vals *vals, char ***array)
 
 	curr_line = get_next_line(fd);
 	if (!array || !*array || !curr_line)
-		return ((close(fd), ft_del(array), ft_del(curr_line), quit("Allocation error", vals)), NULL);
+		return ((close(fd), ft_del(array), ft_del(curr_line),
+				quit("Allocation error", vals)), NULL);
 	i = 0;
 	while (i < vals->y)
 	{
@@ -56,7 +57,8 @@ char	***get_array(int fd, t_vals *vals, char ***array)
 		ft_del(curr_line);
 		curr_line = get_next_line(fd);
 		if (!array || !*array)
-			return ((close(fd), ft_del(array), ft_del(curr_line), quit("Allocation error", vals)), NULL);
+			return ((close(fd), ft_del(array), ft_del(curr_line),
+					quit("Allocation error", vals)), NULL);
 		i++;
 	}
 	close(fd);

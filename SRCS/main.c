@@ -6,7 +6,7 @@
 /*   By: mzaian <mzaian@student.42perpignan.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 10:35:22 by mzaian            #+#    #+#             */
-/*   Updated: 2025/02/01 03:29:58 by mzaian           ###   ########.fr       */
+/*   Updated: 2025/02/01 04:01:45 by mzaian           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int	main(int argc, char **argv)
 	vals->height = 384;
 	vals->title = set_title(argv[1]);
 	vals->win = mlx_new_window(vals->mlx, vals->width, vals->height,
-				vals->title);
+			vals->title);
 	if (ft_strcmp(argv[1], vals->title))
 		ft_del((void *)vals->title);
 	vals->img = mlx_new_image(vals->mlx, vals->width, vals->height);

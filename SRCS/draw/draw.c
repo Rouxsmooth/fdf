@@ -1,27 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   hooks_event.c                                      :+:      :+:    :+:   */
+/*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mzaian <mzaian@student.42perpignan.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/25 13:48:40 by mzaian            #+#    #+#             */
-/*   Updated: 2025/02/02 11:55:39 by mzaian           ###   ########.fr       */
+/*   Created: 2025/02/02 11:49:03 by mzaian            #+#    #+#             */
+/*   Updated: 2025/02/03 12:59:33 by mzaian           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../INCLUDES/fdf.h"
 
-int	mlx_close(t_vals *vals)
+void	put_pixel(t_vals *vals)
 {
-	quit(0, vals);
-	return (0);
-}
+	int	*pixel;
+	int	temp;
+	int	size_line;
 
-int	key_release(int keycode, t_vals *vals)
-{
-	// ft_printf("code : %d | searched code %d\n", keycode, K_ESCAPE);
-	if (keycode == K_ESCAPE)
-		mlx_close(vals);
-	return (0);
+	pixel = (int *) mlx_get_data_addr(vals->img, &temp, &size_line, &temp);
+	pixel[vals->point.y * vals->width + vals->point.x] = vals->point.color; 
 }

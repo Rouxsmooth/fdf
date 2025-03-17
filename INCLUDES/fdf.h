@@ -6,7 +6,7 @@
 /*   By: mzaian <mzaian@student.42perpignan.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 11:09:37 by mzaian            #+#    #+#             */
-/*   Updated: 2025/01/30 11:15:40 by mzaian           ###   ########.fr       */
+/*   Updated: 2025/02/02 11:59:19 by mzaian           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,13 @@
 # include "../.mlx/mlx.h"
 #include "../../libft/INCLUDES/libft.h"
 #include <stdio.h>
+
+typedef struct s_point
+{
+	int	x;
+	int	y;
+	int	color;
+}	t_point;
 
 typedef struct s_vals
 {
@@ -29,7 +36,7 @@ typedef struct s_vals
 	int		height;
 	char	*title;
 	char	***array;
-	//image & window
+	t_point	point;
 }	t_vals;
 
 /* parser.c */
@@ -50,7 +57,45 @@ void	quit(char *error_msg, t_vals *vals);
 void	hooks_loop(t_vals *vals);
 
 /* hooks_event.c */
+int		key_release(int keycode, t_vals *vals);
 int		mlx_close(t_vals *vals);
 
-//cc SRCS/main.c -L .mlx -l:libmlx.a -L ../libft -l:libft.a -lX11 -lXext
+/* mlx keycode macros */
+
+# define K_A 97
+# define K_B 98
+# define K_C 99
+# define K_D 100
+# define K_E 101
+# define K_F 102
+# define K_G 103
+# define K_H 104
+# define K_I 105
+# define K_J 106
+# define K_K 107
+# define K_L 108
+# define K_M 109
+# define K_N 110
+# define K_O 111
+# define K_P 112
+# define K_Q 113
+# define K_R 114
+# define K_S 115
+# define K_T 116
+# define K_U 117
+# define K_V 118
+# define K_W 119
+# define K_X 120
+# define K_Y 121
+# define K_Z 122
+
+# define K_SPACE 32
+# define K_ESCAPE 65307
+
+# define MOUSE_CLICK_L 1
+# define MOUSE_CLICK_R 3
+# define MOUSE_CLICK_M 2
+# define MOUSE_SCROLL_U 4
+# define MOUSE_SCROLL_D 5
+
 #endif

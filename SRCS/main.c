@@ -6,7 +6,7 @@
 /*   By: mzaian <mzaian@student.42perpignan.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 10:35:22 by mzaian            #+#    #+#             */
-/*   Updated: 2025/02/01 04:01:45 by mzaian           ###   ########.fr       */
+/*   Updated: 2025/03/17 10:02:36 by mzaian           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,6 @@ void	mlx_del(t_vals *vals)
 	}
 	return (ft_del(vals));
 }
-//del mlx_vals, image, link etc
-//mlx clear is mlx destroy vals -> mlx destroy img -> mlx destroydisplay 
-//+ freet_vals->mlx
 
 void	quit(char *error_msg, t_vals *vals)
 {

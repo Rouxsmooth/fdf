@@ -6,7 +6,7 @@
 /*   By: mzaian <mzaian@student.42perpignan.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 11:09:37 by mzaian            #+#    #+#             */
-/*   Updated: 2025/02/02 11:59:19 by mzaian           ###   ########.fr       */
+/*   Updated: 2025/03/17 09:45:53 by mzaian           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ typedef struct s_point
 {
 	int	x;
 	int	y;
+	int	z;
 	int	color;
 }	t_point;
 

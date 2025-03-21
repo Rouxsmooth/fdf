@@ -6,7 +6,7 @@
 /*   By: mzaian <mzaian@student.42perpignan.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/02 11:49:03 by mzaian            #+#    #+#             */
-/*   Updated: 2025/03/21 11:50:35 by mzaian           ###   ########.fr       */
+/*   Updated: 2025/03/21 14:28:13 by mzaian           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ unsigned int	get_color(char *hexinstr)
 	unsigned int	nbr;
 	int				start;
 
+	nbr = 0;
 	start = ft_strstrindex(hexinstr, "0x") + 2;
 	if (start == 1)
 		return (0xFFFFFF);
@@ -94,10 +95,10 @@ void	draw_map(t_vals *vals)
 	t_point	p2;
 
 	y = 0;
-	while (y < vals->y)
+	while (y < vals->y - 1)
 	{
 		x = 0;
-		while (x < vals->x)
+		while (x < vals->x - 1)
 		{
 			p1.x = x;
 			p1.y = y;

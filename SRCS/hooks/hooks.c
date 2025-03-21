@@ -6,7 +6,7 @@
 /*   By: mzaian <mzaian@student.42perpignan.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 13:48:43 by mzaian            #+#    #+#             */
-/*   Updated: 2025/03/21 11:49:58 by mzaian           ###   ########.fr       */
+/*   Updated: 2025/03/21 14:17:35 by mzaian           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,8 @@
 
 int	loop(t_vals *vals)
 {
-	int	i = 0;
-	while (i < 600)
-	{
-		vals->point.x = i;
-		vals->point.y = i/2;
-		vals->point.color = 0xFFFFFF;
-		put_pixel(vals);
-		i++;
-		ft_printf("x'%d' y'%d'\n", vals->point.x, vals->point.y);
-	}
-	while (1)
-		;
-	// draw_map(vals);
+	draw_map(vals);
+	mlx_put_image_to_window(vals->mlx, vals->win, vals->img, 0, 0);
 	//map draw and events
 	return (1);
 }

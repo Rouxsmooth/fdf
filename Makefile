@@ -8,8 +8,6 @@ CFLAGS = -Wall -Werror -Wextra -g
 CFILES = SRCS/hooks/hooks.c SRCS/hooks/hooks_event.c SRCS/parser/parser.c SRCS/parser/parser_utils.c SRCS/draw/draw.c SRCS/main.c
 OFILES = $(CFILES:.c=.o)
 
-makemlx:
-	@make -C .mlx
 	
 $(LIBNAME) : $(OFILES)
 	@if [ ! -f .mlx/libmlx.a ]; then $(MAKE) makemlx; fi
@@ -18,6 +16,9 @@ $(LIBNAME) : $(OFILES)
 	@cp $(LIBFT_DIR)/libft.a $(LIBNAME)
 	@ar -rc $(LIBNAME) $(OFILES)
 	@cc SRCS/main.c -L. -l:fdf.a $(INCLUDE_MLX) $(INCLUDE_LIBFT) -lX11 -lXext -o fdf -g
+
+makemlx:
+	@make -C .mlx
 
 %.o : %.c compiled
 	@cc $(CFLAGS) -I INCLUDES -c $< -o $@

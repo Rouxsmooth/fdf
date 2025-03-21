@@ -6,7 +6,7 @@
 /*   By: mzaian <mzaian@student.42perpignan.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 11:09:37 by mzaian            #+#    #+#             */
-/*   Updated: 2025/03/21 11:30:09 by mzaian           ###   ########.fr       */
+/*   Updated: 2025/03/21 15:00:40 by mzaian           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ typedef struct s_vals
 {
 	int		x;
 	int		y;
+	int		map+
 	void	*mlx;
 	void	*win;
 	void	*img;

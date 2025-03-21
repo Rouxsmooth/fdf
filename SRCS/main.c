@@ -6,7 +6,7 @@
 /*   By: mzaian <mzaian@student.42perpignan.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 10:35:22 by mzaian            #+#    #+#             */
-/*   Updated: 2025/03/17 10:02:36 by mzaian           ###   ########.fr       */
+/*   Updated: 2025/03/21 14:55:51 by mzaian           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,16 +56,16 @@ int	main(int argc, char **argv)
 {
 	t_vals	*vals;
 
-	vals = ft_calloc(1, sizeof(t_vals));
 	if (argc != 2)
 		return (display_error(ft_ternary("Map missing!", "Too much parameters",
 					argc < 2)));
+	vals = ft_calloc(1, sizeof(t_vals));
 	vals->array = map_parser(argv[1], vals);
 	if (!(vals->array))
 		quit("Parsing error!", vals);
 	vals->mlx = mlx_init();
-	vals->width = 668;
-	vals->height = 384;
+	mlx_get_screen_size(vals->mlx, &(vals->width), &(vals->height));
+	vals->height *= 0.92;
 	vals->title = set_title(argv[1]);
 	vals->win = mlx_new_window(vals->mlx, vals->width, vals->height,
 			vals->title);

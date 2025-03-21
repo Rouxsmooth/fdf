@@ -6,7 +6,7 @@
 /*   By: mzaian <mzaian@student.42perpignan.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 11:09:37 by mzaian            #+#    #+#             */
-/*   Updated: 2025/03/17 09:45:53 by mzaian           ###   ########.fr       */
+/*   Updated: 2025/03/21 11:30:09 by mzaian           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,11 @@ void	hooks_loop(t_vals *vals);
 /* hooks_event.c */
 int		key_release(int keycode, t_vals *vals);
 int		mlx_close(t_vals *vals);
+
+/* draw.c */
+void	put_pixel(t_vals *vals);
+void	draw_map(t_vals *vals);
+
 
 /* mlx keycode macros */
 

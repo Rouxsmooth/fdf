@@ -6,7 +6,7 @@
 /*   By: mzaian <mzaian@student.42perpignan.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 13:48:43 by mzaian            #+#    #+#             */
-/*   Updated: 2025/03/21 14:17:35 by mzaian           ###   ########.fr       */
+/*   Updated: 2025/03/24 14:40:20 by mzaian           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,12 @@
 
 int	loop(t_vals *vals)
 {
-	draw_map(vals);
-	mlx_put_image_to_window(vals->mlx, vals->win, vals->img, 0, 0);
+	if (!vals->already_drew)
+	{
+		draw_map(vals);
+		mlx_put_image_to_window(vals->mlx, vals->win, vals->img, 0, 0);
+		vals->already_drew = 1;
+	}
 	//map draw and events
 	return (1);
 }

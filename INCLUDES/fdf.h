@@ -6,7 +6,7 @@
 /*   By: mzaian <mzaian@student.42perpignan.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 11:09:37 by mzaian            #+#    #+#             */
-/*   Updated: 2025/03/24 13:38:18 by mzaian           ###   ########.fr       */
+/*   Updated: 2025/03/24 14:37:01 by mzaian           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ typedef struct s_vals
 	char	*title;
 	char	***array;
 	t_point	point;
+	int		already_drew;
 }	t_vals;
 
 /* parser.c */

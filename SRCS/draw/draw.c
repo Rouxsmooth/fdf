@@ -6,7 +6,7 @@
 /*   By: mzaian <mzaian@student.42perpignan.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/02 11:49:03 by mzaian            #+#    #+#             */
-/*   Updated: 2025/03/21 14:28:13 by mzaian           ###   ########.fr       */
+/*   Updated: 2025/03/24 13:46:50 by mzaian           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,41 +51,57 @@ unsigned int	get_color(char *hexinstr)
 	return (nbr);
 }
 
-void	draw_line(t_vals *vals, t_point p1, t_point p2)
+void draw_line(t_vals *vals, t_point p1, t_point p2)
+{
+	while (p1.x != p2.x || p1.y != p2.y)
+	{
+		vals->point = p1;
+		put_pixel(vals);
+		if (p1.x < p2.x)
+			p1.x++;
+		else if (p1.x > p2.x)
+			p1.x--;
+		if (p1.y < p2.y)
+			p1.y++;
+		else if (p1.y > p2.y)
+			p1.y--;
+	}
+	return ;
+}
+
+void create_line(t_vals *vals, t_point p1, t_point p2)
 {
 	int	dx;
 	int	dy;
 	int	err;
-	int	e2;
 
 	dx = ft_abs(p2.x - p1.x);
-	dy = -ft_abs(p2.y - p1.y);
-	err = dx + dy;
-	while (1)
+	dy = ft_abs(p2.y - p1.y);
+	err = dx - dy;
+	p1.x *= vals->map_ratio;
+	p1.y *= vals->map_ratio;
+	p1.z *= vals->map_ratio;
+	p2.x *= vals->map_ratio;
+	p2.y *= vals->map_ratio;
+	p2.z *= vals->map_ratio; // je dois vraiment regler cette horreur bordel et ajouter ce z au passage.....
+	while (p1.x != p2.x || p1.y != p2.y)
 	{
 		vals->point = p1;
 		put_pixel(vals);
-		if (p1.x == p2.x && p1.y == p2.y)
-			break ;
-		e2 = 2 * err;
-		if (e2 >= dy)
+		if (2 * err > -dy)
 		{
-			err += dy;
-			if (p1.x < p2.x)
-				p1.x += 1;
-			else
-				p1.x -= 1;
+			err -= dy;
+			p1.x += ft_intternary(1, -1, p1.x < p2.x);
 		}
-		if (e2 <= dx)
+		if (2 * err < dx)
 		{
 			err += dx;
-			if (p1.y < p2.y)
-				p1.y += 1;
-			else
-				p1.y -= 1;
-		}
+			p1.y += ft_intternary(1, -1, p1.y < p2.y);
+		}	
 	}
+	draw_line(vals, p1, p2);
 }
+
 
 void	draw_map(t_vals *vals)
 {
@@ -110,7 +126,7 @@ void	draw_map(t_vals *vals)
 				p2.y = y;
 				p2.z = ft_atoi(vals->array[y][x + 1]);
 				p2.color = get_color(vals->array[y + 1][x]);
-				draw_line(vals, p1, p2);
+				create_line(vals, p1, p2);
 			}
 			if (y < vals->y - 1)
 			{
@@ -118,7 +134,7 @@ void	draw_map(t_vals *vals)
 				p2.y = y + 1;
 				p2.z = ft_atoi(vals->array[y + 1][x]);
 				p2.color = get_color(vals->array[y + 1][x]);
-				draw_line(vals, p1, p2);
+				create_line(vals, p1, p2);
 			}
 			x++;
 		}

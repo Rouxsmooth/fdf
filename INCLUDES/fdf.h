@@ -6,7 +6,7 @@
 /*   By: mzaian <mzaian@student.42perpignan.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 11:09:37 by mzaian            #+#    #+#             */
-/*   Updated: 2025/03/21 15:00:40 by mzaian           ###   ########.fr       */
+/*   Updated: 2025/03/24 13:38:18 by mzaian           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <fcntl.h>
 # include "../.mlx/mlx.h"
+# include "math.h"
 #include "../../libft/INCLUDES/libft.h"
 #include <stdio.h>
 
@@ -30,7 +31,7 @@ typedef struct s_vals
 {
 	int		x;
 	int		y;
-	int		map+
+	int		map_ratio;
 	void	*mlx;
 	void	*win;
 	void	*img;

@@ -6,7 +6,7 @@
 /*   By: mzaian <mzaian@student.42perpignan.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 10:35:22 by mzaian            #+#    #+#             */
-/*   Updated: 2025/03/21 14:55:51 by mzaian           ###   ########.fr       */
+/*   Updated: 2025/03/24 13:45:26 by mzaian           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,13 @@ void	quit(char *error_msg, t_vals *vals)
 	exit(0);
 }
 
+int	ft_min(int i1, int i2)
+{
+	if (i1 < i2)
+		return (i1);
+	return (i2);
+}
+
 int	main(int argc, char **argv)
 {
 	t_vals	*vals;
@@ -66,6 +73,8 @@ int	main(int argc, char **argv)
 	vals->mlx = mlx_init();
 	mlx_get_screen_size(vals->mlx, &(vals->width), &(vals->height));
 	vals->height *= 0.92;
+	vals->width *= 0.95;
+	vals->map_ratio = ft_min(vals->height / vals->y * 0.75, vals->width / vals->x * 0.75);
 	vals->title = set_title(argv[1]);
 	vals->win = mlx_new_window(vals->mlx, vals->width, vals->height,
 			vals->title);

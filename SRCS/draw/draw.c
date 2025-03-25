@@ -6,7 +6,7 @@
 /*   By: mzaian <mzaian@student.42perpignan.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/02 11:49:03 by mzaian            #+#    #+#             */
-/*   Updated: 2025/03/24 13:46:50 by mzaian           ###   ########.fr       */
+/*   Updated: 2025/03/25 15:23:05 by mzaian           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,16 +111,16 @@ void	draw_map(t_vals *vals)
 	t_point	p2;
 
 	y = 0;
-	while (y < vals->y - 1)
+	while (y < vals->array_height - 1)
 	{
 		x = 0;
-		while (x < vals->x - 1)
+		while (x < vals->array_width - 1)
 		{
 			p1.x = x;
 			p1.y = y;
 			p1.z = ft_atoi(vals->array[y][x]);
 			p1.color = get_color(vals->array[y][x]);
-			if (x < vals->x - 1)
+			if (x < vals->array_width - 1)
 			{
 				p2.x = x + 1;
 				p2.y = y;
@@ -128,7 +128,7 @@ void	draw_map(t_vals *vals)
 				p2.color = get_color(vals->array[y + 1][x]);
 				create_line(vals, p1, p2);
 			}
-			if (y < vals->y - 1)
+			if (y < vals->array_height - 1)
 			{
 				p2.x = x;
 				p2.y = y + 1;

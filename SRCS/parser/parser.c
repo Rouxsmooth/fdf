@@ -6,7 +6,7 @@
 /*   By: mzaian <mzaian@student.42perpignan.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 16:02:27 by mzaian            #+#    #+#             */
-/*   Updated: 2025/02/01 04:01:22 by mzaian           ###   ########.fr       */
+/*   Updated: 2025/03/25 15:24:13 by mzaian           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ char	***get_array(int fd, t_vals *vals, char ***array)
 		return ((close(fd), ft_del(array), ft_del(curr_line),
 				quit("Allocation error", vals)), NULL);
 	i = 0;
-	while (i < vals->y)
+	while (i < vals->array_height)
 	{
 		if (array_loop(curr_line, array, i) == -1)
 			return ((close(fd), ft_del(curr_line)), NULL);
@@ -76,12 +76,12 @@ int	parse_loop(int fd, t_vals *vals)
 	while (curr_line)
 	{
 		item_count = get_itemcount(curr_line);
-		if ((int) item_count != vals->x && vals->y != 0)
+		if ((int) item_count != vals->array_width && vals->array_height != 0)
 			return (ft_del(curr_line), -1);
-		vals->x = item_count;
+		vals->array_width = item_count;
 		ft_del(curr_line);
 		curr_line = get_next_line(fd);
-		vals->y++;
+		vals->array_height++;
 	}
 	return (ft_del(curr_line), 1);
 }
@@ -95,7 +95,7 @@ char	***map_parser(char *map, t_vals *vals)
 		return (display_error("Map not found."), NULL);
 	if (fd == -2)
 		return (NULL);
-	vals->y = 0;
+	vals->array_height = 0;
 	if (parse_loop(fd, vals) == -1)
 	{
 		close(fd);

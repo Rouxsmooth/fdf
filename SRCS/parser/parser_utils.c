@@ -6,7 +6,7 @@
 /*   By: mzaian <mzaian@student.42perpignan.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 16:04:24 by mzaian            #+#    #+#             */
-/*   Updated: 2025/01/30 12:15:10 by mzaian           ###   ########.fr       */
+/*   Updated: 2025/03/25 15:24:09 by mzaian           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,11 +87,11 @@ char	***create_array(t_vals *vals)
 	char	***array;
 	int		i;
 
-	array = (char ***) ft_calloc(vals->y + 1, sizeof(char **));
+	array = (char ***) ft_calloc(vals->array_height + 1, sizeof(char **));
 	i = 0;
-	while (i < vals->y)
+	while (i < vals->array_height)
 	{
-		array[i] = (char **) ft_calloc(vals->x + 1, sizeof(char *));
+		array[i] = (char **) ft_calloc(vals->array_width + 1, sizeof(char *));
 		if (!array[i])
 			quit("Allocation error", vals);
 		i++;

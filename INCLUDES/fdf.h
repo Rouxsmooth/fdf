@@ -6,7 +6,7 @@
 /*   By: mzaian <mzaian@student.42perpignan.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 11:09:37 by mzaian            #+#    #+#             */
-/*   Updated: 2025/03/24 14:37:01 by mzaian           ###   ########.fr       */
+/*   Updated: 2025/03/25 15:47:38 by mzaian           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,18 +29,18 @@ typedef struct s_point
 
 typedef struct s_vals
 {
-	int		x;
-	int		y;
+	int		already_drew;
+	char	***array;
+	int		array_height;
+	int		array_width;
+	int		height;
+	void	*img;
 	int		map_ratio;
 	void	*mlx;
-	void	*win;
-	void	*img;
-	int		width;
-	int		height;
 	char	*title;
-	char	***array;
+	int		width;
+	void	*win;
 	t_point	point;
-	int		already_drew;
 }	t_vals;
 
 /* parser.c */

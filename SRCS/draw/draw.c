@@ -6,7 +6,7 @@
 /*   By: mzaian <mzaian@student.42perpignan.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/02 11:49:03 by mzaian            #+#    #+#             */
-/*   Updated: 2025/03/26 16:27:00 by mzaian           ###   ########.fr       */
+/*   Updated: 2025/03/26 19:28:46 by mzaian           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	put_pixel(t_vals *vals)
 	pixel[vals->point.y * vals->width + vals->point.x] = vals->point.color;
 }
 
-unsigned int	get_color(char *hexinstr)
+unsigned int	getcolor(char *hexinstr)
 {
 	int				i;
 	char			*base;
@@ -51,71 +51,102 @@ unsigned int	get_color(char *hexinstr)
 	return (nbr);
 }
 
-t_point	get_iso(t_point p, t_vals *vals)
+t_point	get_iso(t_point point, t_vals *vals)
 {
-	int	prev_x;
-	int	prev_y;
+	int prev_x;
+	int prev_y;
 
-	prev_x = p.x;
-	prev_y = p.y;
-	p.x = (prev_x - prev_y) * cos(30 * M_PI/180) * vals->map_ratio;
-	p.y = (prev_x + prev_y) * cos(30 * M_PI/180) * vals->map_ratio - (p.z * vals->map_ratio);
-	return (p);
+	prev_x = point.x * vals->map_ratio;
+	prev_y = point.y * vals->map_ratio;
+	point.x = (prev_x - prev_y) * cos(30 * M_PI / 180);
+	point.y = (prev_x + prev_y) * sin(30 * M_PI / 180) - (point.z * vals->map_ratio);
+	return (point);
 }
 
-void draw_line(t_vals *vals, t_point p1, t_point p2)
+void	drawlow(t_vals *vals, t_point p1, t_point p2)
 {
-	while (p1.x != p2.x || p1.y != p2.y)
+	int	dx;
+	int	dy;
+	int	err;
+	int	inc;
+
+	dx = p2.x - p1.x;
+	dy = p2.y - p1.y;
+	inc = 1;
+	if (dy < 0)
+		inc = -1;
+	dy *= inc;
+	err = 2 * dy - dx;
+	while (p1.x != p2.x)
 	{
 		vals->point = p1;
 		put_pixel(vals);
-		if (p1.x < p2.x)
-			p1.x++;
-		else if (p1.x > p2.x)
-			p1.x--;
-		if (p1.y < p2.y)
-			p1.y++;
-		else if (p1.y > p2.y)
-			p1.y--;
+		if (err > 0)
+		{
+			p1.y += inc;
+			err += 2 * (dy - dx);
+		}
+		else
+			err += 2 * dy;
+		p1.x += inc;
+	}
+	return ;
+}
+
+void	drawhigh(t_vals *vals, t_point p1, t_point p2)
+{
+	int	dx;
+	int	dy;
+	int	err;
+	int	inc;
+
+	dx = p2.x - p1.x;
+	dy = p2.y - p1.y;
+	inc = 1;
+	if (dx < 0)
+		inc = -1;
+	dx *= inc;
+	err = 2 * dx - dy;
+	while (p1.y != p2.y)
+	{
+		vals->point = p1;
+		put_pixel(vals);
+		if (err > 0)
+		{
+			p1.x += inc;
+			err += 2 * (dx - dy);
+		}
+		else
+			err += 2 * dx;
+		p1.y += inc;
 	}
 	return ;
 }
 
 void create_line(t_vals *vals, t_point p1, t_point p2)
 {
-	int	dx;
-	int	dy;
-	int	err;
-
-	dx = ft_abs(p2.x - p1.x);
-	dy = ft_abs(p2.y - p1.y);
-	err = dx - dy;
-	p1.x *= vals->map_ratio;
-	p1.y *= vals->map_ratio;
-	p1.z *= vals->map_ratio;
-	p2.x *= vals->map_ratio;
-	p2.y *= vals->map_ratio;
-	p2.z *= vals->map_ratio; // je dois vraiment regler cette horreur bordel et ajouter ce z au passage.....
-	//p1 = get_iso(p1, vals);
-	//p2 = get_iso(p2, vals);
-	while (p1.x != p2.x || p1.y != p2.y)
+	ft_printf("\t\t%d %d | %d %d\n", p1.x, p2.x, p1.y, p2.x);
+	if (ft_abs(p2.y - p1.y) < ft_abs(p2.x - p1.x))
 	{
-		ft_printf("%d %d | %d %d\n", p1.x, p2.x, p1.y, p2.y);
-		vals->point = p1;
-		if (2 * err > -dy)
-		{
-			err -= dy;
-			p1.x += ft_intternary(1, -1, p1.x < p2.x);
-		}
-		if (2 * err < dx)
-		{
-			err += dx;
-			p1.y += ft_intternary(1, -1, p1.y < p2.y);
-		}	
-		draw_line(vals, p1, p2);
+		if (p1.x > p2.x)
+			return (drawlow(vals, p2, p1));
+		return (drawlow(vals, p1, p2));
 	}
+	if (p1.y > p2.y)
+		return (drawhigh(vals, p2, p1));
+	return (drawhigh(vals, p1, p2));
 }
 
+t_point	setpoint(int x, int y, char *z, char *color)
+{
+	t_point	point;
+
+	point.x = x;
+	point.y = y;
+	point.z = ft_atoi(z);
+	point.color = getcolor(color);
+	return (point);
+}
 
 void	draw_map(t_vals *vals)
 {
@@ -127,27 +158,20 @@ void	draw_map(t_vals *vals)
 	y = 0;
 	while (y < vals->array_height - 1)
 	{
+		// ft_printf("y : %d\n", y);
 		x = 0;
-		while (x < vals->array_width - 1)
+		while (x < vals->array_width)
 		{
-			p1.x = x;
-			p1.y = y;
-			p1.z = ft_atoi(vals->array[y][x]);
-			p1.color = get_color(vals->array[y][x]);
+			// ft_printf("\tx : %d\n", x);
+			p1 = setpoint(x, y, vals->array[y][x], vals->array[y][x]);
 			if (x < vals->array_width - 1)
 			{
-				p2.x = x + 1;
-				p2.y = y;
-				p2.z = ft_atoi(vals->array[y][x + 1]);
-				p2.color = get_color(vals->array[y + 1][x]);
+				p2 = setpoint(x + 1, y, vals->array[y][x + 1], vals->array[y + 1][x]);
 				create_line(vals, p1, p2);
 			}
 			if (y < vals->array_height - 1)
 			{
-				p2.x = x;
-				p2.y = y + 1;
-				p2.z = ft_atoi(vals->array[y + 1][x]);
-				p2.color = get_color(vals->array[y + 1][x]);
+				p2 = setpoint(x, y + 1, vals->array[y + 1][x], vals->array[y + 1][x]);
 				create_line(vals, p1, p2);
 			}
 			x++;
@@ -155,3 +179,35 @@ void	draw_map(t_vals *vals)
 		y++;
 	}
 }
+
+// void	draw_map(t_vals *vals)
+// {
+// 	int		x;
+// 	int		y;
+// 	t_point	p1;
+// 	t_point	p2_h;
+// 	t_point	p2_v;
+
+// 	y = 0;
+// 	while (y < vals->array_height)
+// 	{
+// 		x = 0;
+// 		while (x < vals->array_width)
+// 		{
+// 			p1 = setpoint(x, y, vals->array[y][x], vals->array[y][x]);
+
+// 			if (x < vals->array_width - 1)
+// 			{
+// 				p2_h = setpoint(x + 1, y, vals->array[y][x + 1], vals->array[y][x + 1]);
+// 				create_line(vals, p1, p2_h);
+// 			}
+// 			if (y < vals->array_height - 1)
+// 			{
+// 				p2_v = setpoint(x, y + 1, vals->array[y + 1][x], vals->array[y + 1][x]);
+// 				create_line(vals, p1, p2_v);
+// 			}
+// 			x++;
+// 		}
+// 		y++;
+// 	}
+// }

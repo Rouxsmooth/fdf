@@ -21,7 +21,7 @@ makemlx:
 	@make -C .mlx
 
 %.o : %.c compiled
-	@cc $(CFLAGS) -I INCLUDES/fdf.h -c $< -o $@
+	@cc $(CFLAGS) -I INCLUDES -c $< -o $@
 
 compiled :
 	@echo "All $(LIBNAME) files compiled."

@@ -6,7 +6,7 @@
 /*   By: mzaian <mzaian@student.42perpignan.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 11:09:37 by mzaian            #+#    #+#             */
-/*   Updated: 2025/03/25 15:47:38 by mzaian           ###   ########.fr       */
+/*   Updated: 2025/03/26 13:53:30 by mzaian           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include <fcntl.h>
 # include "../.mlx/mlx.h"
-# include "math.h"
+# include <math.h>
 #include "../../libft/INCLUDES/libft.h"
 #include <stdio.h>
 

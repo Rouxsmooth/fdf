@@ -15,13 +15,13 @@ $(LIBNAME) : $(OFILES)
 	@rm -f $(LIBNAME)
 	@cp $(LIBFT_DIR)/libft.a $(LIBNAME)
 	@ar -rc $(LIBNAME) $(OFILES)
-	@cc SRCS/main.c -L. -l:fdf.a $(INCLUDE_MLX) $(INCLUDE_LIBFT) -lX11 -lXext -o fdf -g
+	@cc SRCS/main.c -L. -l:fdf.a $(INCLUDE_MLX) $(INCLUDE_LIBFT) -lX11 -lXext -lm -o fdf -g
 
 makemlx:
 	@make -C .mlx
 
 %.o : %.c compiled
-	@cc $(CFLAGS) -I INCLUDES -c $< -o $@
+	@cc $(CFLAGS) -I INCLUDES/fdf.h -c $< -o $@
 
 compiled :
 	@echo "All $(LIBNAME) files compiled."

@@ -6,7 +6,7 @@
 /*   By: mzaian <mzaian@student.42perpignan.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/02 11:49:03 by mzaian            #+#    #+#             */
-/*   Updated: 2025/03/25 15:23:05 by mzaian           ###   ########.fr       */
+/*   Updated: 2025/03/26 16:27:00 by mzaian           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,18 @@ unsigned int	get_color(char *hexinstr)
 	return (nbr);
 }
 
+t_point	get_iso(t_point p, t_vals *vals)
+{
+	int	prev_x;
+	int	prev_y;
+
+	prev_x = p.x;
+	prev_y = p.y;
+	p.x = (prev_x - prev_y) * cos(30 * M_PI/180) * vals->map_ratio;
+	p.y = (prev_x + prev_y) * cos(30 * M_PI/180) * vals->map_ratio - (p.z * vals->map_ratio);
+	return (p);
+}
+
 void draw_line(t_vals *vals, t_point p1, t_point p2)
 {
 	while (p1.x != p2.x || p1.y != p2.y)
@@ -84,10 +96,12 @@ void create_line(t_vals *vals, t_point p1, t_point p2)
 	p2.x *= vals->map_ratio;
 	p2.y *= vals->map_ratio;
 	p2.z *= vals->map_ratio; // je dois vraiment regler cette horreur bordel et ajouter ce z au passage.....
+	//p1 = get_iso(p1, vals);
+	//p2 = get_iso(p2, vals);
 	while (p1.x != p2.x || p1.y != p2.y)
 	{
+		ft_printf("%d %d | %d %d\n", p1.x, p2.x, p1.y, p2.y);
 		vals->point = p1;
-		put_pixel(vals);
 		if (2 * err > -dy)
 		{
 			err -= dy;
@@ -98,8 +112,8 @@ void create_line(t_vals *vals, t_point p1, t_point p2)
 			err += dx;
 			p1.y += ft_intternary(1, -1, p1.y < p2.y);
 		}	
+		draw_line(vals, p1, p2);
 	}
-	draw_line(vals, p1, p2);
 }
 
 

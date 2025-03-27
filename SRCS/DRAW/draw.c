@@ -18,14 +18,17 @@ void	draw(t_vals *vals, int x, int y)
 	t_point	p2;
 
 	p1 = setpoint(x, y, vals->array[y][x], vals->array[y][x]);
+	printf("z %d from '%s'\n", p1.z, vals->array[y][x]);
 	if (x < vals->array_width - 1)
 	{
 		p2 = setpoint(x + 1, y, vals->array[y][x + 1], vals->array[y][x + 1]);
+		printf("z %d from '%s'\n", p2.z, vals->array[y][x + 1]);
 		create_line(vals, p1, p2);
 	}
 	if (y < vals->array_height - 1)
 	{
 		p2 = setpoint(x, y + 1, vals->array[y + 1][x], vals->array[y + 1][x]);
+		printf("z %d from '%s'\n", p2.z, vals->array[y + 1][x]);
 		create_line(vals, p1, p2);
 	}
 	return ;
@@ -57,7 +60,7 @@ void	drawlow(t_vals *vals, t_point p1, t_point p2)
 	while (p1.x != p2.x)
 	{
 		p1.color = interpolate_color(p1.color, p2.color, low.interpolator.div);
-		vals->point = p1;
+		vals->point = get_iso(p1, vals);
 		put_pixel(vals);
 		if (low.err > 0)
 		{
@@ -80,7 +83,7 @@ void	drawhigh(t_vals *vals, t_point p1, t_point p2)
 	while (p1.y != p2.y)
 	{
 		p1.color = interpolate_color(p1.color, p2.color, high.interpolator.div);
-		vals->point = p1;
+		vals->point = get_iso(p1, vals);
 		put_pixel(vals);
 		if (high.err > 0)
 		{

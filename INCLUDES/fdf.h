@@ -6,7 +6,7 @@
 /*   By: mzaian <mzaian@student.42perpignan.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 11:09:37 by mzaian            #+#    #+#             */
-/*   Updated: 2025/03/27 19:05:51 by mzaian           ###   ########.fr       */
+/*   Updated: 2025/03/27 19:28:42 by mzaian           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ void			drawhigh(t_vals *vals, t_point p1, t_point p2);
 void			put_pixel(t_vals *vals);
 t_point			setpoint(int x, int y, char *z, char *color);
 t_point			addratio(t_point point, int ratio);
+t_point			get_iso(t_point point, t_vals *vals);
 
 /* hooks.c */
 void			hooks_loop(t_vals *vals);

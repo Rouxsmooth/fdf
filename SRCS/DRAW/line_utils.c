@@ -6,7 +6,7 @@
 /*   By: mzaian <mzaian@student.42perpignan.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 18:44:06 by mzaian            #+#    #+#             */
-/*   Updated: 2025/03/27 18:54:49 by mzaian           ###   ########.fr       */
+/*   Updated: 2025/03/27 19:28:34 by mzaian           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,9 @@ void	create_line(t_vals *vals, t_point p1, t_point p2)
 {
 	p1 = addratio(p1, vals->map_ratio);
 	p2 = addratio(p2, vals->map_ratio);
+	p1 = get_iso(p1, vals);
+	p2 = get_iso(p2, vals);
+	ft_printf(" in screen size %d %d\n", vals->width, vals->height);
 	if (ft_abs(p2.y - p1.y) < ft_abs(p2.x - p1.x))
 	{
 		if (p1.x > p2.x)

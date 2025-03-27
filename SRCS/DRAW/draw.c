@@ -4,26 +4,13 @@
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mzaian <mzaian@student.42perpignan.fr>     +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
+/*                                                 +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/02 11:49:03 by mzaian            #+#    #+#             */
 /*   Updated: 2025/03/27 18:54:35 by mzaian           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../INCLUDES/fdf.h"
-
-// t_point	get_iso(t_point point, t_vals *vals)
-// {
-// 	int prev_x;
-// 	int prev_y;
-
-// 	prev_x = point.x * vals->map_ratio;
-// 	prev_y = point.y * vals->map_ratio;
-// 	point.x = (prev_x - prev_y) * cos(30 * M_PI / 180);
-// 	point.y = (prev_x + prev_y) * sin(30 * M_PI / 180)
-//		- (point.z * vals->map_ratio);
-// 	return (point);
-// }
 
 void	draw(t_vals *vals, int x, int y)
 {

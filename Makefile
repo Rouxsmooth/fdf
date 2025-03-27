@@ -5,7 +5,10 @@ INCLUDE_LIBFT = -L $(LIBFT_DIR) -l:libft.a
 INCLUDE_MLX = -L .mlx -l:libmlx.a  -lX11 -lXext
 CFLAGS = -Wall -Werror -Wextra -g
 
-CFILES = SRCS/hooks/hooks.c SRCS/hooks/hooks_event.c SRCS/parser/parser.c SRCS/parser/parser_utils.c SRCS/draw/draw.c SRCS/main.c
+CFILES =	SRCS/HOOKS/hooks.c		SRCS/HOOKS/hooks_event.c					\
+			SRCS/PARSER/parser.c	SRCS/PARSER/parser_utils.c					\
+			SRCS/DRAW/draw_utils.c	SRCS/DRAW/line_utils.c		SRCS/DRAW/draw.c\
+			SRCS/MAIN/main.c		SRCS/MAIN/init.c			SRCS/MAIN/quit.c
 OFILES = $(CFILES:.c=.o)
 
 	
@@ -15,7 +18,7 @@ $(LIBNAME) : $(OFILES)
 	@rm -f $(LIBNAME)
 	@cp $(LIBFT_DIR)/libft.a $(LIBNAME)
 	@ar -rc $(LIBNAME) $(OFILES)
-	@cc SRCS/main.c -L. -l:fdf.a $(INCLUDE_MLX) $(INCLUDE_LIBFT) -lX11 -lXext -lm -o fdf -g
+	@cc SRCS/MAIN/main.c -L. -l:fdf.a $(INCLUDE_MLX) $(INCLUDE_LIBFT) -lX11 -lXext -lm -o fdf -g
 
 makemlx:
 	@make -C .mlx

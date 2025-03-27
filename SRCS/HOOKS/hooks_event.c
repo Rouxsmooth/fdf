@@ -1,33 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   hooks.c                                            :+:      :+:    :+:   */
+/*   hooks_event.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mzaian <mzaian@student.42perpignan.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/25 13:48:43 by mzaian            #+#    #+#             */
-/*   Updated: 2025/03/24 14:40:20 by mzaian           ###   ########.fr       */
+/*   Created: 2025/01/25 13:48:40 by mzaian            #+#    #+#             */
+/*   Updated: 2025/03/27 18:56:47 by mzaian           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../INCLUDES/fdf.h"
 
-int	loop(t_vals *vals)
+int	mlx_close(t_vals *vals)
 {
-	if (!vals->already_drew)
-	{
-		draw_map(vals);
-		mlx_put_image_to_window(vals->mlx, vals->win, vals->img, 0, 0);
-		vals->already_drew = 1;
-	}
-	//map draw and events
-	return (1);
+	quit(0, vals);
+	return (0);
 }
 
-void	hooks_loop(t_vals *vals)
+// ft_printf("code : %d | searched code %d\n", keycode, K_ESCAPE);
+int	key_release(int keycode, t_vals *vals)
 {
-	mlx_hook(vals->win, 17, 0, mlx_close, vals);
-	mlx_hook(vals->win, 3, 1L<<1, key_release, vals);
-	mlx_loop_hook(vals->mlx, loop, vals);
-	mlx_loop(vals->mlx);
+	if (keycode == K_ESCAPE)
+		mlx_close(vals);
+	return (0);
 }

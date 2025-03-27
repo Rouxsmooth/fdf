@@ -1,27 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   hooks_event.c                                      :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mzaian <mzaian@student.42perpignan.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/25 13:48:40 by mzaian            #+#    #+#             */
-/*   Updated: 2025/03/17 09:38:17 by mzaian           ###   ########.fr       */
+/*   Created: 2025/01/09 10:35:22 by mzaian            #+#    #+#             */
+/*   Updated: 2025/03/27 18:59:01 by mzaian           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../INCLUDES/fdf.h"
 
-int	mlx_close(t_vals *vals)
+int	main(int argc, char **argv)
 {
-	quit(0, vals);
-	return (0);
-}
+	t_vals	vals;
 
-int	key_release(int keycode, t_vals *vals)
-{
-	// ft_printf("code : %d | searched code %d\n", keycode, K_ESCAPE);
-	if (keycode == K_ESCAPE)
-		mlx_close(vals);
+	if (argc != 2)
+		return (display_error(ft_ternary("Map missing!", "Too much parameters",
+					argc < 2)));
+	vals = init_vals(argv[1]);
+	hooks_loop(&vals);
 	return (0);
 }

@@ -17,18 +17,18 @@ void	draw(t_vals *vals, int x, int y)
 	t_point	p1;
 	t_point	p2;
 
-	p1 = setpoint(x, y, vals->array[y][x], vals->array[y][x]);
-	printf("z %d from '%s'\n", p1.z, vals->array[y][x]);
+	p1 = addratio(setpoint(x, y, vals->array[y][x], vals->array[y][x]),
+		vals->map_ratio);
 	if (x < vals->array_width - 1)
 	{
-		p2 = setpoint(x + 1, y, vals->array[y][x + 1], vals->array[y][x + 1]);
-		printf("z %d from '%s'\n", p2.z, vals->array[y][x + 1]);
+		p2 = addratio(setpoint(x + 1, y, vals->array[y][x + 1],
+			vals->array[y][x + 1]), vals->map_ratio);
 		create_line(vals, p1, p2);
 	}
 	if (y < vals->array_height - 1)
 	{
-		p2 = setpoint(x, y + 1, vals->array[y + 1][x], vals->array[y + 1][x]);
-		printf("z %d from '%s'\n", p2.z, vals->array[y + 1][x]);
+		p2 = addratio(setpoint(x, y + 1, vals->array[y + 1][x],
+			vals->array[y + 1][x]), vals->map_ratio);
 		create_line(vals, p1, p2);
 	}
 	return ;

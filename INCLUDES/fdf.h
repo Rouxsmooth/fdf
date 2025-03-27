@@ -6,7 +6,7 @@
 /*   By: mzaian <mzaian@student.42perpignan.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 11:09:37 by mzaian            #+#    #+#             */
-/*   Updated: 2025/03/27 19:28:42 by mzaian           ###   ########.fr       */
+/*   Updated: 2025/03/27 23:39:09 by mzaian           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ typedef struct s_vals
 	int		array_width;
 	int		height;
 	void	*img;
-	int		map_ratio;
+	float	map_ratio;
 	void	*mlx;
 	char	*title;
 	int		width;

@@ -6,7 +6,7 @@
 /*   By: mzaian <mzaian@student.42perpignan.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/02 11:49:03 by mzaian            #+#    #+#             */
-/*   Updated: 2025/03/26 19:28:46 by mzaian           ###   ########.fr       */
+/*   Updated: 2025/03/27 13:04:27 by mzaian           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	put_pixel(t_vals *vals)
 
 	pixel = (int *) mlx_get_data_addr(vals->img, &temp, &size_line, &temp);
 	pixel[vals->point.y * vals->width + vals->point.x] = vals->point.color;
+	return ;
 }
 
 unsigned int	getcolor(char *hexinstr)
@@ -63,6 +64,14 @@ t_point	get_iso(t_point point, t_vals *vals)
 	return (point);
 }
 
+t_point	addratio(t_point point, int ratio)
+{
+	point.x *= ratio;
+	point.y *= ratio;
+	point.z *= ratio;
+	return (point);
+}
+
 void	drawlow(t_vals *vals, t_point p1, t_point p2)
 {
 	int	dx;
@@ -90,7 +99,6 @@ void	drawlow(t_vals *vals, t_point p1, t_point p2)
 			err += 2 * dy;
 		p1.x += inc;
 	}
-	return ;
 }
 
 void	drawhigh(t_vals *vals, t_point p1, t_point p2)
@@ -120,12 +128,13 @@ void	drawhigh(t_vals *vals, t_point p1, t_point p2)
 			err += 2 * dx;
 		p1.y += inc;
 	}
-	return ;
 }
 
 void create_line(t_vals *vals, t_point p1, t_point p2)
 {
-	ft_printf("\t\t%d %d | %d %d\n", p1.x, p2.x, p1.y, p2.x);
+	p1 = addratio(p1, vals->map_ratio);
+	p2 = addratio(p2, vals->map_ratio);
+	// ft_printf("\t\t%d %d | %d %d\n", p1.x, p2.x, p1.y, p2.x);
 	if (ft_abs(p2.y - p1.y) < ft_abs(p2.x - p1.x))
 	{
 		if (p1.x > p2.x)
@@ -156,17 +165,15 @@ void	draw_map(t_vals *vals)
 	t_point	p2;
 
 	y = 0;
-	while (y < vals->array_height - 1)
+	while (y < vals->array_height)
 	{
-		// ft_printf("y : %d\n", y);
 		x = 0;
 		while (x < vals->array_width)
 		{
-			// ft_printf("\tx : %d\n", x);
 			p1 = setpoint(x, y, vals->array[y][x], vals->array[y][x]);
 			if (x < vals->array_width - 1)
 			{
-				p2 = setpoint(x + 1, y, vals->array[y][x + 1], vals->array[y + 1][x]);
+				p2 = setpoint(x + 1, y, vals->array[y][x + 1], vals->array[y][x + 1]);
 				create_line(vals, p1, p2);
 			}
 			if (y < vals->array_height - 1)
@@ -210,4 +217,75 @@ void	draw_map(t_vals *vals)
 // 		}
 // 		y++;
 // 	}
+// }
+
+
+// void drawlow(t_vals *vals, t_point p1, t_point p2)
+// {
+//     int dx = p2.x - p1.x;
+//     int dy = p2.y - p1.y;
+//     int inc = (dy < 0) ? -1 : 1;
+//     dy *= inc;
+//     int err = 2 * dy - dx;
+    
+//     int steps = dx;  // Number of pixels to draw
+//     float t = 0.0;
+
+//     while (p1.x != p2.x)
+//     {
+//         // Interpolate color
+//         int red   = ((1 - t) * ((p1.color >> 16) & 0xFF)) + (t * ((p2.color >> 16) & 0xFF));
+//         int green = ((1 - t) * ((p1.color >> 8) & 0xFF)) + (t * ((p2.color >> 8) & 0xFF));
+//         int blue  = ((1 - t) * (p1.color & 0xFF)) + (t * (p2.color & 0xFF));
+        
+//         vals->point = p1;
+//         vals->point.color = (red << 16) | (green << 8) | blue;
+//         put_pixel(vals);
+
+//         if (err > 0)
+//         {
+//             p1.y += inc;
+//             err += 2 * (dy - dx);
+//         }
+//         else
+//             err += 2 * dy;
+
+//         p1.x += inc;
+//         t += 1.0 / steps;  // Move color interpolation step
+//     }
+// }
+
+// void drawhigh(t_vals *vals, t_point p1, t_point p2)
+// {
+//     int dx = p2.x - p1.x;
+//     int dy = p2.y - p1.y;
+//     int inc = (dx < 0) ? -1 : 1;
+//     dx *= inc;
+//     int err = 2 * dx - dy;
+    
+//     int steps = dy;  // Number of pixels to draw
+//     float t = 0.0;
+
+//     while (p1.y != p2.y)
+//     {
+//         // Interpolate color
+//         int red   = ((1 - t) * ((p1.color >> 16) & 0xFF)) + (t * ((p2.color >> 16) & 0xFF));
+//         int green = ((1 - t) * ((p1.color >> 8) & 0xFF)) + (t * ((p2.color >> 8) & 0xFF));
+//         int blue  = ((1 - t) * (p1.color & 0xFF)) + (t * (p2.color & 0xFF));
+        
+//         vals->point = p1;
+//         vals->point.color = (red << 16) | (green << 8) | blue;
+//         put_pixel(vals);
+
+//         if (err > 0)
+//         {
+//             p1.x += inc;
+//             err += 2 * (dx - dy);
+//         }
+//         else
+//             err += 2 * dx;
+
+//         p1.y += inc;
+//         t += 1.0 / steps;  // Move color interpolation step
+//     }
 // }

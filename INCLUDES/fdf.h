@@ -6,7 +6,7 @@
 /*   By: mzaian <mzaian@student.42perpignan.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 11:09:37 by mzaian            #+#    #+#             */
-/*   Updated: 2025/03/27 23:39:09 by mzaian           ###   ########.fr       */
+/*   Updated: 2025/03/28 14:13:56 by mzaian           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,10 @@ typedef struct s_linecalc
 
 typedef struct s_point
 {
-	int	x;
-	int	y;
-	int	z;
-	int	color;
+	float	x;
+	float	y;
+	float	z;
+	int		color;
 }	t_point;
 
 typedef struct s_vals

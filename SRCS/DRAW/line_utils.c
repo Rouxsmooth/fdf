@@ -6,7 +6,7 @@
 /*   By: mzaian <mzaian@student.42perpignan.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 18:44:06 by mzaian            #+#    #+#             */
-/*   Updated: 2025/03/27 23:42:13 by mzaian           ###   ########.fr       */
+/*   Updated: 2025/03/28 14:15:56 by mzaian           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,9 +91,6 @@ t_linecalc	set_high(t_point p1, t_point p2)
 
 void	create_line(t_vals *vals, t_point p1, t_point p2)
 {
-	// p1 = get_iso(p1, vals);
-	// p2 = get_iso(p2, vals);
-	// ft_printf(" in screen size %d %d\n", vals->width, vals->height);
 	if (ft_abs(p2.y - p1.y) < ft_abs(p2.x - p1.x))
 	{
 		if (p1.x > p2.x)

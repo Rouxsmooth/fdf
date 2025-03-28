@@ -6,7 +6,7 @@
 /*   By: mzaian <mzaian@student.42perpignan.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 18:47:32 by mzaian            #+#    #+#             */
-/*   Updated: 2025/03/27 23:56:56 by mzaian           ###   ########.fr       */
+/*   Updated: 2025/03/28 14:38:22 by mzaian           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@ void	put_pixel(t_vals *vals)
 	int	temp;
 	int	size_line;
 
-	printf("y%d x%d : tot%d\n", vals->point.y, vals->point.x, vals->point.y * vals->width + vals->point.x);
+	printf("y%f x%f : tot%f\n", vals->point.y, vals->point.x, vals->point.y * vals->width + vals->point.x);
 	pixel = (int *) mlx_get_data_addr(vals->img, &temp, &size_line, &temp);
-	pixel[vals->point.y * vals->width + vals->point.x] = vals->point.color;
+	pixel[(int) vals->point.y * vals->width + (int) vals->point.x] = vals->point.color;
 	return ;
 }
 
@@ -28,7 +28,7 @@ t_point	addratio(t_point point, int ratio)
 {
 	point.x *= ratio;
 	point.y *= ratio;
-	// point.z *= ratio;
+	point.z *= 0.09;
 	return (point);
 }
 
@@ -42,15 +42,16 @@ t_point	setpoint(int x, int y, char *z, char *color)
 	point.color = getcolor(color);
 	return (point);
 }
-
+	
 t_point	get_iso(t_point point, t_vals *vals)
 {
-	int centered_x;
-	int centered_y;
+	float	x;
+	float	y;
 
-	centered_x = point.x + vals->array_width * vals->map_ratio * 0.7;
-	centered_y = point.y;
-	point.x = (centered_x - centered_y) * cos(30 * M_PI / 180);
-	point.y = (centered_x + centered_y) * sin(30 * M_PI / 180) - point.z;
+	x = point.x + (vals->array_width - 1) / 2 * vals->map_ratio;
+	y = point.y + (vals->array_height - 1) / 2 * vals->map_ratio;
+	point.x = (int) ((x - y) * cos(M_PI / 6) + vals->width / 2);
+	point.y = (int) ((x + y) * cos(M_PI / 6) - (point.z * vals->map_ratio)
+		+ vals->height / 2);
 	return (point);
 }

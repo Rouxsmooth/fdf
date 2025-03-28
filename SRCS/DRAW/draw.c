@@ -17,18 +17,18 @@ void	draw(t_vals *vals, int x, int y)
 	t_point	p1;
 	t_point	p2;
 
-	p1 = addratio(setpoint(x, y, vals->array[y][x], vals->array[y][x]),
-		vals->map_ratio);
+	p1 = get_iso(addratio(setpoint(x, y, vals->array[y][x], vals->array[y][x]),
+		vals->map_ratio), vals);
 	if (x < vals->array_width - 1)
 	{
-		p2 = addratio(setpoint(x + 1, y, vals->array[y][x + 1],
-			vals->array[y][x + 1]), vals->map_ratio);
+		p2 = get_iso(addratio(setpoint(x + 1, y, vals->array[y][x + 1],
+			vals->array[y][x + 1]), vals->map_ratio), vals);
 		create_line(vals, p1, p2);
 	}
 	if (y < vals->array_height - 1)
 	{
-		p2 = addratio(setpoint(x, y + 1, vals->array[y + 1][x],
-			vals->array[y + 1][x]), vals->map_ratio);
+		p2 = get_iso(addratio(setpoint(x, y + 1, vals->array[y + 1][x],
+			vals->array[y + 1][x]), vals->map_ratio), vals);
 		create_line(vals, p1, p2);
 	}
 	return ;
@@ -59,9 +59,11 @@ void	drawlow(t_vals *vals, t_point p1, t_point p2)
 	low = set_low(p1, p2);
 	while (p1.x != p2.x)
 	{
-		p1.color = interpolate_color(p1.color, p2.color, low.interpolator.div);
-		vals->point = get_iso(p1, vals);
-		put_pixel(vals);
+		vals->point = p1;
+		vals->point.color = interpolate_color(p1.color, p2.color, low.interpolator.div);
+		printf("%f %f %d %d\n", p1.x, p1.y, vals->width, vals->height);
+		if (p1.x >= 0 && p1.x < vals->width && p1.y >= 0 && p1.y < vals->height)
+			put_pixel(vals);
 		if (low.err > 0)
 		{
 			p1.y += low.inc;
@@ -69,7 +71,7 @@ void	drawlow(t_vals *vals, t_point p1, t_point p2)
 		}
 		else
 			low.err += 2 * low.dy;
-		p1.x += low.inc;
+		p1.x += 1;
 		low.interpolator.div += 1 / low.interpolator.step;
 	}
 	return ;
@@ -82,9 +84,10 @@ void	drawhigh(t_vals *vals, t_point p1, t_point p2)
 	high = set_high(p1, p2);
 	while (p1.y != p2.y)
 	{
-		p1.color = interpolate_color(p1.color, p2.color, high.interpolator.div);
-		vals->point = get_iso(p1, vals);
-		put_pixel(vals);
+		vals->point = p1;
+		vals->point.color = interpolate_color(p1.color, p2.color, high.interpolator.div);
+		if (p1.x >= 0 && p1.x < vals->width && p1.y >= 0 && p1.y < vals->height)
+			put_pixel(vals);
 		if (high.err > 0)
 		{
 			p1.x += high.inc;
@@ -92,7 +95,7 @@ void	drawhigh(t_vals *vals, t_point p1, t_point p2)
 		}
 		else
 			high.err += 2 * high.dx;
-		p1.y += high.inc;
+		p1.y += 1;
 		high.interpolator.div += 1 / high.interpolator.step;
 	}
 	return ;

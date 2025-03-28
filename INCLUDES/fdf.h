@@ -6,7 +6,7 @@
 /*   By: mzaian <mzaian@student.42perpignan.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 11:09:37 by mzaian            #+#    #+#             */
-/*   Updated: 2025/03/28 14:13:56 by mzaian           ###   ########.fr       */
+/*   Updated: 2025/03/28 15:05:54 by mzaian           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ void			hooks_loop(t_vals *vals);
 /* hooks_event.c */
 int				key_release(int keycode, t_vals *vals);
 int				mlx_close(t_vals *vals);
+int				mouse_down(int mousecode, int mouse_x, int mouse_y, t_vals *vals);
 
 /* init.c */
 t_vals			init_vals(char *title);
@@ -107,5 +108,7 @@ void			quit(char *error_msg, t_vals *vals);
 
 /* mlx keycode macro */
 # define K_ESCAPE 65307
+# define M_SCROLLUP 4
+# define M_SCROLLDOWN 5
 
 #endif

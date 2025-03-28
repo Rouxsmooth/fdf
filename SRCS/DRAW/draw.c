@@ -61,7 +61,6 @@ void	drawlow(t_vals *vals, t_point p1, t_point p2)
 	{
 		vals->point = p1;
 		vals->point.color = interpolate_color(p1.color, p2.color, low.interpolator.div);
-		printf("%f %f %d %d\n", p1.x, p1.y, vals->width, vals->height);
 		if (p1.x >= 0 && p1.x < vals->width && p1.y >= 0 && p1.y < vals->height)
 			put_pixel(vals);
 		if (low.err > 0)
@@ -72,7 +71,7 @@ void	drawlow(t_vals *vals, t_point p1, t_point p2)
 		else
 			low.err += 2 * low.dy;
 		p1.x += 1;
-		low.interpolator.div += 1 / low.interpolator.step;
+		low.interpolator.div += (float) 1 / low.dx;
 	}
 	return ;
 }
@@ -96,7 +95,7 @@ void	drawhigh(t_vals *vals, t_point p1, t_point p2)
 		else
 			high.err += 2 * high.dx;
 		p1.y += 1;
-		high.interpolator.div += 1 / high.interpolator.step;
+		high.interpolator.div += (float) 1 / high.dy;
 	}
 	return ;
 }

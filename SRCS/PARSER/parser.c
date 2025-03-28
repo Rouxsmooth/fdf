@@ -6,7 +6,7 @@
 /*   By: mzaian <mzaian@student.42perpignan.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 16:02:27 by mzaian            #+#    #+#             */
-/*   Updated: 2025/03/25 15:24:13 by mzaian           ###   ########.fr       */
+/*   Updated: 2025/03/28 17:37:55 by mzaian           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,17 @@ char	***get_array(int fd, t_vals *vals, char ***array)
 	return (ft_del(curr_line), array);
 }
 
+int	nl_index(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+		if (str[i++] == '\n')
+			return (i - 1);
+	return (-1);
+}
+
 int	parse_loop(int fd, t_vals *vals)
 {
 	size_t	item_count;
@@ -76,8 +87,9 @@ int	parse_loop(int fd, t_vals *vals)
 	while (curr_line)
 	{
 		item_count = get_itemcount(curr_line);
-		if ((int) item_count != vals->array_width && vals->array_height != 0)
-			return (ft_del(curr_line), -1);
+		if (((int) item_count != vals->array_width && vals->array_height != 0)
+			|| curr_line[nl_index(curr_line) - 1] == ' ')
+			return (ft_del(curr_line), ft_printf("out now"), -1);
 		vals->array_width = item_count;
 		ft_del(curr_line);
 		curr_line = get_next_line(fd);
@@ -92,14 +104,24 @@ char	***map_parser(char *map, t_vals *vals)
 
 	fd = get_map(map);
 	if (fd == -1)
+	{
+		vals->array = NULL;
+		vals->mlx = NULL;
+		vals->img = NULL;
+		vals->win = NULL;
 		return (display_error("Map not found."), NULL);
+	}
 	if (fd == -2)
 		return (NULL);
 	vals->array_height = 0;
 	if (parse_loop(fd, vals) == -1)
 	{
 		close(fd);
-		quit("Allocation error", vals);
+		vals->array = NULL;
+		vals->mlx = NULL;
+		vals->img = NULL;
+		vals->win = NULL;
+		quit("Map error", vals);
 	}
 	close(fd);
 	fd = get_map(map);

@@ -1,2 +1,2 @@
 FIX segfault at wrong path input : either init or parser
-FIX isometric projection random z changes
+FIX parser leak

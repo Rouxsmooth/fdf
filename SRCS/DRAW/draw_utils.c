@@ -6,7 +6,7 @@
 /*   By: mzaian <mzaian@student.42perpignan.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 18:47:32 by mzaian            #+#    #+#             */
-/*   Updated: 2025/03/28 14:55:21 by mzaian           ###   ########.fr       */
+/*   Updated: 2025/03/28 16:36:02 by mzaian           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ void	put_pixel(t_vals *vals)
 	int	size_line;
 
 	pixel = (int *) mlx_get_data_addr(vals->img, &temp, &size_line, &temp);
-	pixel[(int) vals->point.y * vals->width + (int) vals->point.x] = vals->point.color;
+	pixel[(int) vals->point.y * vals->width + (int) vals->point.x]
+		= vals->point.color;
 	return ;
 }
 
@@ -41,7 +42,7 @@ t_point	setpoint(int x, int y, char *z, char *color)
 	point.color = getcolor(color);
 	return (point);
 }
-	
+
 t_point	get_iso(t_point point, t_vals *vals)
 {
 	float	x;
@@ -49,8 +50,9 @@ t_point	get_iso(t_point point, t_vals *vals)
 
 	x = point.x - (vals->array_width - 1) / 2 * vals->map_ratio;
 	y = point.y - (vals->array_height - 1) / 2 * vals->map_ratio;
-	point.x = (int) ((x - y) * cos(M_PI / 6) + vals->width / 2);
-	point.y = (int) ((x + y) * sin(M_PI / 6) - (point.z * vals->map_ratio)
-		+ vals->height / 2);
+	point.x = (int)((x - y) * cos(M_PI / 6) + (vals->width / 2)
+			+ vals->x_offset);
+	point.y = (int)((x + y) * sin(M_PI / 6) - (point.z * vals->map_ratio)
+			+ (vals->height / 2) + vals->y_offset);
 	return (point);
 }

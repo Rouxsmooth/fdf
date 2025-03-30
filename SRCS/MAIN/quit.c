@@ -6,7 +6,7 @@
 /*   By: mzaian <mzaian@student.42perpignan.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 18:58:01 by mzaian            #+#    #+#             */
-/*   Updated: 2025/03/28 16:50:27 by mzaian           ###   ########.fr       */
+/*   Updated: 2025/03/29 23:19:37 by mzaian           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,12 @@ void	mlx_del(t_vals *vals)
 	vals_del(vals);
 	if (!vals)
 		return ;
+	if (!vals->array)
+	{
+		vals->mlx = NULL;
+		vals->img = NULL;
+		vals->win = NULL;
+	}
 	if (vals->mlx && vals->win)
 		mlx_destroy_window(vals->mlx, vals->win);
 	if (vals->mlx && vals->img)

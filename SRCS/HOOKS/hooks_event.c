@@ -6,7 +6,7 @@
 /*   By: mzaian <mzaian@student.42perpignan.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 13:48:40 by mzaian            #+#    #+#             */
-/*   Updated: 2025/03/28 17:06:22 by mzaian           ###   ########.fr       */
+/*   Updated: 2025/03/29 23:17:14 by mzaian           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,14 @@ int	move_world(t_vals *vals, t_press pressing)
 		vals->y_offset -= 0.25 * vals->map_ratio;
 	if (pressing.s)
 		vals->y_offset += 0.25 * vals->map_ratio;
+	return (0);
+}
+
+int	reset_map(t_vals *vals)
+{
+	vals->x_offset = 0;
+	vals->y_offset = 0;
+	vals->map_ratio = vals->base_map_ratio;
+	vals->already_drew = 0;
 	return (0);
 }

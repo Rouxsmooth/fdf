@@ -6,12 +6,11 @@
 /*   By: mzaian <mzaian@student.42perpignan.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 13:48:43 by mzaian            #+#    #+#             */
-/*   Updated: 2025/03/28 17:10:46 by mzaian           ###   ########.fr       */
+/*   Updated: 2025/03/29 23:18:01 by mzaian           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../INCLUDES/fdf.h"
-
 
 int	key_press(int keycode, t_vals *vals)
 {
@@ -38,6 +37,8 @@ int	key_release(int keycode, t_vals *vals)
 		vals->pressing.a = 0;
 	if (keycode == K_D)
 		vals->pressing.d = 0;
+	if (keycode == K_SPACE)
+		reset_map(vals);
 	return (0);
 }
 
@@ -63,12 +64,12 @@ int	mouse_down(int mousecode, int mouse_x, int mouse_y, t_vals *vals)
 	return (0);
 }
 
-
 int	loop(t_vals *vals)
 {
 	int	temp;
 
-	if (vals->pressing.a || vals->pressing.w || vals->pressing.d || vals->pressing.s)
+	if (vals->pressing.a || vals->pressing.w
+		|| vals->pressing.d || vals->pressing.s)
 		vals->already_drew = 0;
 	if (!vals->already_drew)
 	{

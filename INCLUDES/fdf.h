@@ -6,7 +6,7 @@
 /*   By: mzaian <mzaian@student.42perpignan.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 11:09:37 by mzaian            #+#    #+#             */
-/*   Updated: 2025/03/28 16:20:11 by mzaian           ###   ########.fr       */
+/*   Updated: 2025/03/30 01:22:19 by mzaian           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ typedef struct s_vals
 {
 	char	***array;
 	char	*title;
+	float	base_map_ratio;
 	float	map_ratio;
 	float	max_map_ratio;
 	float	min_map_ratio;
@@ -90,6 +91,7 @@ int				mouse_down(int mousecode, int mouse_x, int mouse_y,
 /* hooks_event.c */
 int				mlx_close(t_vals *vals);
 int				move_world(t_vals *vals, t_press pressing);
+int				reset_map(t_vals *vals);
 
 /* init.c */
 void			init_vals(t_vals *vals, char *title);
@@ -125,6 +127,7 @@ void			quit(char *error_msg, t_vals *vals);
 # define K_ESCAPE 65307
 # define K_D 100
 # define K_S 115
+# define K_SPACE 32
 # define K_W 119
 # define M_SCROLLUP 4
 # define M_SCROLLDOWN 5

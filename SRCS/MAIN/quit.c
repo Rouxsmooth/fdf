@@ -6,7 +6,7 @@
 /*   By: mzaian <mzaian@student.42perpignan.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 18:58:01 by mzaian            #+#    #+#             */
-/*   Updated: 2025/03/29 23:19:37 by mzaian           ###   ########.fr       */
+/*   Updated: 2025/03/30 21:58:41 by mzaian           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,11 @@ void	vals_del(t_vals *vals)
 	if (vals->array)
 	{
 		i = 0;
-		insidelens = (int *) ft_calloc(vals->array_height, sizeof(int));
-		while (i < vals->array_height)
-			insidelens[i++] = vals->array_width;
-		del_3d_array((void ***) vals->array, vals->array_height, insidelens);
+		insidelens = (int *) ft_calloc(vals->map.array_height, sizeof(int));
+		while (i < vals->map.array_height)
+			insidelens[i++] = vals->map.array_width;
+		del_3d_array((void ***) vals->array, vals->map.array_height,
+			insidelens);
 		ft_del(insidelens);
 	}
 	return ;
@@ -38,18 +39,18 @@ void	mlx_del(t_vals *vals)
 		return ;
 	if (!vals->array)
 	{
-		vals->mlx = NULL;
-		vals->img = NULL;
-		vals->win = NULL;
+		vals->mlx.mlxptr = NULL;
+		vals->mlx.img = NULL;
+		vals->mlx.win = NULL;
 	}
-	if (vals->mlx && vals->win)
-		mlx_destroy_window(vals->mlx, vals->win);
-	if (vals->mlx && vals->img)
-		mlx_destroy_image(vals->mlx, vals->img);
-	if (vals->mlx)
+	if (vals->mlx.mlxptr && vals->mlx.win)
+		mlx_destroy_window(vals->mlx.mlxptr, vals->mlx.win);
+	if (vals->mlx.mlxptr && vals->mlx.img)
+		mlx_destroy_image(vals->mlx.mlxptr, vals->mlx.img);
+	if (vals->mlx.mlxptr)
 	{
-		mlx_destroy_display(vals->mlx);
-		free(vals->mlx);
+		mlx_destroy_display(vals->mlx.mlxptr);
+		free(vals->mlx.mlxptr);
 	}
 	return ;
 }

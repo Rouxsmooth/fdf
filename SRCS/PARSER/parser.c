@@ -6,7 +6,7 @@
 /*   By: mzaian <mzaian@student.42perpignan.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 16:02:27 by mzaian            #+#    #+#             */
-/*   Updated: 2025/03/30 01:21:35 by mzaian           ###   ########.fr       */
+/*   Updated: 2025/03/30 22:03:17 by mzaian           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ char	***get_array(int fd, t_vals *vals, char ***array)
 		return ((close(fd), ft_del(array), ft_del(curr_line),
 				quit("Allocation error", vals)), NULL);
 	i = 0;
-	while (i < vals->array_height)
+	while (i < vals->map.array_height)
 	{
 		if (array_loop(curr_line, array, i) == -1)
 			return ((close(fd), ft_del(curr_line)), NULL);
@@ -89,14 +89,17 @@ int	parse_loop(int fd, t_vals *vals)
 	while (curr_line)
 	{
 		item_count = get_itemcount(curr_line);
-		if (((int)item_count != vals->array_width && vals->array_height != 0)
-			|| (nl_index(curr_line) > 0
-					&& curr_line[nl_index(curr_line) - 1] == ' '))
+		if (!vals->map.has_color)
+			vals->map.has_color = ft_intternary(1, 0,
+					ft_strstr(curr_line, ",0x") != NULL);
+		if (((int)item_count != vals->map.array_width
+				&& vals->map.array_height != 0) || (nl_index(curr_line) > 0
+				&& curr_line[nl_index(curr_line) - 1] == ' '))
 			invalid = 1;
-		vals->array_width = item_count;
+		vals->map.array_width = item_count;
 		ft_del(curr_line);
 		curr_line = get_next_line(fd);
-		vals->array_height++;
+		vals->map.array_height++;
 	}
 	return (ft_del(curr_line), invalid);
 }

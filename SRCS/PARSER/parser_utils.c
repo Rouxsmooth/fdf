@@ -6,15 +6,38 @@
 /*   By: mzaian <mzaian@student.42perpignan.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 16:04:24 by mzaian            #+#    #+#             */
-/*   Updated: 2025/03/28 16:38:30 by mzaian           ###   ########.fr       */
+/*   Updated: 2025/03/30 22:03:09 by mzaian           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../INCLUDES/fdf.h"
 
-int	alloc_error(void)
+void	get_extremums(t_vals *vals)
 {
-	return (display_error("Allocation error"), -1);
+	int	i;
+	int	j;
+	int	curr_nbr;
+
+	i = 0;
+	vals->map.lowest_z = 0;
+	vals->map.highest_z = 0;
+	while (i < vals->map.array_height)
+	{
+		j = 0;
+		while (j < vals->map.array_width)
+		{
+			curr_nbr = ft_atoi(vals->array[i][j]);
+			if (i == 0 && j == 0)
+				vals->map.lowest_z = curr_nbr;
+			if (curr_nbr < vals->map.lowest_z)
+				vals->map.lowest_z = curr_nbr;
+			if (curr_nbr > vals->map.highest_z)
+				vals->map.highest_z = curr_nbr;
+			j++;
+		}
+		i++;
+	}
+	return ;
 }
 
 char	*set_title(char *map)
@@ -40,7 +63,7 @@ int	get_map(char *map)
 
 	mappath = ft_strjoin(".maps/", map);
 	if (!mappath)
-		return (alloc_error(), -2);
+		return (display_error("Allocation error"), -2);
 	fd = open(mappath, O_RDONLY);
 	if (fd != -1)
 		return (ft_del(mappath), fd);
@@ -87,11 +110,12 @@ char	***create_array(t_vals *vals)
 	char	***array;
 	int		i;
 
-	array = (char ***) ft_calloc(vals->array_height + 1, sizeof(char **));
+	array = (char ***) ft_calloc(vals->map.array_height + 1, sizeof(char **));
 	i = 0;
-	while (i < vals->array_height)
+	while (i < vals->map.array_height)
 	{
-		array[i] = (char **) ft_calloc(vals->array_width + 1, sizeof(char *));
+		array[i] = (char **) ft_calloc(vals->map.array_width + 1,
+				sizeof(char *));
 		if (!array[i])
 			quit("Allocation error", vals);
 		i++;

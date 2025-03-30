@@ -6,56 +6,11 @@
 /*   By: mzaian <mzaian@student.42perpignan.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 18:44:06 by mzaian            #+#    #+#             */
-/*   Updated: 2025/03/28 14:15:56 by mzaian           ###   ########.fr       */
+/*   Updated: 2025/03/30 22:00:11 by mzaian           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../INCLUDES/fdf.h"
-
-int	interpolate_color(int color1, int color2, float div)
-{
-	int	red_interpolated;
-	int	green_interpolated;
-	int	blue_interpolated;
-
-	red_interpolated = (((color2 >> 16) & 0xFF) - ((color1 >> 16) & 0xFF))
-		* div + ((color1 >> 16) & 0xFF);
-	green_interpolated = (((color2 >> 8) & 0xFF) - ((color1 >> 8) & 0xFF))
-		* div + ((color1 >> 8) & 0xFF);
-	blue_interpolated = ((color2 & 0xFF) - (color1 & 0xFF))
-		* div + (color1 & 0xFF);
-	return ((red_interpolated << 16) | (green_interpolated << 8)
-		| blue_interpolated);
-}
-
-unsigned int	getcolor(char *hexinstr)
-{
-	int				i;
-	char			*base;
-	unsigned int	nbr;
-	int				start;
-
-	nbr = 0;
-	start = ft_strstrindex(hexinstr, "0x") + 2;
-	if (start == 1)
-		return (0xFFFFFF);
-	if (ft_strchr(&hexinstr[start], 'a') || ft_strchr(&hexinstr[start], 'b')
-		|| ft_strchr(&hexinstr[start], 'c') || ft_strchr(&hexinstr[start], 'd')
-		|| ft_strchr(&hexinstr[start], 'e') || ft_strchr(&hexinstr[start], 'f'))
-		base = "0123456789abcdef";
-	else
-		base = "0123456789ABCDEF";
-	while (hexinstr[start])
-	{
-		nbr *= 16;
-		i = 0;
-		while (hexinstr[start] != base[i])
-			i++;
-		nbr += i;
-		start++;
-	}
-	return (nbr);
-}
 
 t_linecalc	set_low(t_point p1, t_point p2)
 {

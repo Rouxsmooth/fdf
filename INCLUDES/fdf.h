@@ -6,7 +6,7 @@
 /*   By: mzaian <mzaian@student.42perpignan.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 11:09:37 by mzaian            #+#    #+#             */
-/*   Updated: 2025/03/30 01:22:19 by mzaian           ###   ########.fr       */
+/*   Updated: 2025/03/30 21:35:48 by mzaian           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,24 +49,37 @@ typedef struct s_press
 	int	d;
 }	t_press;
 
-typedef struct s_vals
+typedef struct s_mlx
 {
-	char	***array;
+	int		screen_height;
+	int		screen_width;
+	void	*img;
+	void	*mlxptr;
+	void	*win;
+}	t_mlx;
+
+typedef struct s_map
+{
 	char	*title;
 	float	base_map_ratio;
 	float	map_ratio;
 	float	max_map_ratio;
 	float	min_map_ratio;
+	int		array_height;
+	int		array_width;
+	int		has_color;
+	int		highest_z;
+	int		lowest_z;
+}	t_map;
+
+typedef struct s_vals
+{
+	char	***array;
 	float	x_offset;
 	float	y_offset;
 	int		already_drew;
-	int		array_height;
-	int		array_width;
-	int		height;
-	int		width;
-	void	*img;
-	void	*mlx;
-	void	*win;
+	t_map	map;
+	t_mlx	mlx;
 	t_point	point;
 	t_press	pressing;
 }	t_vals;
@@ -78,15 +91,15 @@ void			drawhigh(t_vals *vals, t_point p1, t_point p2);
 
 /* draw_utils.c */
 void			put_pixel(t_vals *vals);
-t_point			setpoint(int x, int y, char *z, char *color);
+t_point			setpoint(int x, int y, t_vals *vals);
 t_point			addratio(t_point point, int ratio);
 t_point			get_iso(t_point point, t_vals *vals);
 
 /* hooks.c */
-void			hooks_loop(t_vals *vals);
 int				key_release(int keycode, t_vals *vals);
 int				mouse_down(int mousecode, int mouse_x, int mouse_y,
 					t_vals *vals);
+void			hooks_loop(t_vals *vals);
 
 /* hooks_event.c */
 int				mlx_close(t_vals *vals);
@@ -98,8 +111,8 @@ void			init_vals(t_vals *vals, char *title);
 
 /* line_utils.c */
 void			create_line(t_vals *vals, t_point p1, t_point p2);
-unsigned int	getcolor(char *hexinstr);
 int				interpolate_color(int color1, int color2, float div);
+unsigned int	getcolor(char *hexinstr, t_vals *vals);
 t_linecalc		set_low(t_point p1, t_point p2);
 t_linecalc		set_high(t_point p1, t_point p2);
 
@@ -108,11 +121,11 @@ void			mlx_del(t_vals *vals);
 void			quit(char *error_msg, t_vals *vals);
 
 /* parser_utils.c */
-int				alloc_error(void);
 int				get_itemcount(char *curr_line);
-char			*set_title(char *map);
 int				get_map(char *map);
 char			***create_array(t_vals *vals);
+char			*set_title(char *map);
+void			get_extremums(t_vals *vals);
 
 /* parser.c */
 char			***map_parser(char *map, t_vals *vals);

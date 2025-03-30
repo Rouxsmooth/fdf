@@ -6,9 +6,9 @@ INCLUDE_LIBFT = -L $(LIBFT_DIR) -l:libft.a
 INCLUDE_MLX = -L $(MLX_DIR) -l:libmlx.a -lX11 -lXext -lm
 CFLAGS = -Wall -Werror -Wextra -g
 
-CFILES =	SRCS/HOOKS/hooks.c		SRCS/HOOKS/hooks_event.c					\
-			SRCS/PARSER/parser.c	SRCS/PARSER/parser_utils.c					\
-			SRCS/DRAW/draw_utils.c	SRCS/DRAW/line_utils.c		SRCS/DRAW/draw.c\
+CFILES =	SRCS/HOOKS/hooks.c		SRCS/HOOKS/hooks_event.c	\
+			SRCS/PARSER/parser.c	SRCS/PARSER/parser_utils.c	\
+			SRCS/DRAW/draw_utils.c	SRCS/DRAW/line_utils.c		SRCS/DRAW/draw.c	SRCS/DRAW/color.c	\
 			SRCS/MAIN/main.c		SRCS/MAIN/init.c			SRCS/MAIN/quit.c
 OFILES = $(CFILES:.c=.o)
 
@@ -17,7 +17,7 @@ OFILES = $(CFILES:.c=.o)
 all: $(NAME)
 
 $(NAME): $(LIBNAME)
-	@cc SRCS/MAIN/main.c -L. -l:$(LIBNAME) $(INCLUDE_MLX) $(INCLUDE_LIBFT) -o $(NAME)
+	@cc SRCS/MAIN/main.c -L. -l:$(LIBNAME) $(INCLUDE_MLX) $(INCLUDE_LIBFT) -o $(NAME) -g
 
 $(LIBNAME): $(OFILES) makelibft makemlx
 	@cp $(LIBFT_DIR)/libft.a $(LIBNAME)
@@ -28,7 +28,7 @@ makemlx:
 	@if [ ! -f $(MLX_DIR)/libmlx.a ]; then \
 		printf "\rCompiling MLX..."; \
 		make -C $(MLX_DIR) >/dev/null 2>&1; \
-		printf "\r\033[34m          MLX compiled successfully!\033[0m\n"; \
+		printf "\r\033[34m          MLX compiled successfully!\033[0m\n\n"; \
 	fi
 
 makelibft:
@@ -54,7 +54,8 @@ fclean: clean
 	@rm -f $(LIBNAME) $(NAME)
 	@echo "    \033[32m$(NAME) cleaned.\033[0m"
 
-re: fclean all
+re: fclean
+	@sleep 1 && make -s all
 
 cleanmlx:
 	@make clean -C $(MLX_DIR) -s

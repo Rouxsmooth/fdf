@@ -1,3 +1,1 @@
-FIX segfault at wrong path input : either init or parser
-FIX parser leak
-je peux faire du map_ratio un int mais le diviser quand je le call
+FIX zoom bug where y jumps when map_ratio (float) overbounds an int threshold

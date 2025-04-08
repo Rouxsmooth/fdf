@@ -6,7 +6,7 @@
 /*   By: mzaian <mzaian@student.42perpignan.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 11:09:37 by mzaian            #+#    #+#             */
-/*   Updated: 2025/03/30 21:35:48 by mzaian           ###   ########.fr       */
+/*   Updated: 2025/04/08 13:44:36 by mzaian           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ typedef struct s_map
 	float	map_ratio;
 	float	max_map_ratio;
 	float	min_map_ratio;
+	float	scale;
 	int		array_height;
 	int		array_width;
 	int		has_color;
@@ -92,7 +93,7 @@ void			drawhigh(t_vals *vals, t_point p1, t_point p2);
 /* draw_utils.c */
 void			put_pixel(t_vals *vals);
 t_point			setpoint(int x, int y, t_vals *vals);
-t_point			addratio(t_point point, int ratio);
+t_point			addratio(t_point point, int ratio, float scale);
 t_point			get_iso(t_point point, t_vals *vals);
 
 /* hooks.c */
@@ -102,6 +103,7 @@ int				mouse_down(int mousecode, int mouse_x, int mouse_y,
 void			hooks_loop(t_vals *vals);
 
 /* hooks_event.c */
+int				change_scale(t_vals *vals, int keycode);
 int				mlx_close(t_vals *vals);
 int				move_world(t_vals *vals, t_press pressing);
 int				reset_map(t_vals *vals);
@@ -139,6 +141,8 @@ void			quit(char *error_msg, t_vals *vals);
 # define K_A 97
 # define K_ESCAPE 65307
 # define K_D 100
+# define K_MINUS 45
+# define K_PLUS 61
 # define K_S 115
 # define K_SPACE 32
 # define K_W 119

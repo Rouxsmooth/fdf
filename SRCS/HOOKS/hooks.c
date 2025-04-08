@@ -6,7 +6,7 @@
 /*   By: mzaian <mzaian@student.42perpignan.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 13:48:43 by mzaian            #+#    #+#             */
-/*   Updated: 2025/03/30 22:02:13 by mzaian           ###   ########.fr       */
+/*   Updated: 2025/04/08 13:29:12 by mzaian           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ int	key_press(int keycode, t_vals *vals)
 
 int	key_release(int keycode, t_vals *vals)
 {
+	if (keycode == K_PLUS || keycode == K_MINUS)
+		change_scale(vals, keycode);
 	if (keycode == K_ESCAPE)
 		mlx_close(vals);
 	if (keycode == K_W)

@@ -6,7 +6,7 @@
 /*   By: mzaian <mzaian@student.42perpignan.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/02 11:49:03 by mzaian            #+#    #+#             */
-/*   Updated: 2025/03/30 21:59:49 by mzaian           ###   ########.fr       */
+/*   Updated: 2025/04/08 13:35:12 by mzaian           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,18 @@ void	draw(t_vals *vals, int x, int y)
 	t_point	p1;
 	t_point	p2;
 
-	p1 = get_iso(addratio(setpoint(x, y, vals), vals->map.map_ratio), vals);
+	p1 = get_iso(addratio(setpoint(x, y, vals), vals->map.map_ratio,
+				vals->map.scale), vals);
 	if (x < vals->map.array_width - 1)
 	{
-		p2 = get_iso(addratio(setpoint(x + 1, y, vals), vals->map.map_ratio),
-				vals);
+		p2 = get_iso(addratio(setpoint(x + 1, y, vals), vals->map.map_ratio,
+					vals->map.scale), vals);
 		create_line(vals, p1, p2);
 	}
 	if (y < vals->map.array_height - 1)
 	{
-		p2 = get_iso(addratio(setpoint(x, y + 1, vals), vals->map.map_ratio),
-				vals);
+		p2 = get_iso(addratio(setpoint(x, y + 1, vals), vals->map.map_ratio,
+					vals->map.scale), vals);
 		create_line(vals, p1, p2);
 	}
 	return ;

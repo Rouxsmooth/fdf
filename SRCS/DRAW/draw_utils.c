@@ -6,7 +6,7 @@
 /*   By: mzaian <mzaian@student.42perpignan.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 18:47:32 by mzaian            #+#    #+#             */
-/*   Updated: 2025/03/30 21:59:14 by mzaian           ###   ########.fr       */
+/*   Updated: 2025/04/08 13:44:24 by mzaian           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,11 @@ void	put_pixel(t_vals *vals)
 	return ;
 }
 
-t_point	addratio(t_point point, int ratio)
+t_point	addratio(t_point point, int ratio, float scale)
 {
 	point.x *= ratio;
 	point.y *= ratio;
-	point.z *= 0.1;
+	point.z *= scale;
 	return (point);
 }
 

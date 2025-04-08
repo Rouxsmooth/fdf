@@ -6,7 +6,7 @@
 /*   By: mzaian <mzaian@student.42perpignan.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 18:57:23 by mzaian            #+#    #+#             */
-/*   Updated: 2025/03/30 21:58:20 by mzaian           ###   ########.fr       */
+/*   Updated: 2025/04/08 13:36:41 by mzaian           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	init_map(t_map *map, t_vals *vals)
 	map->map_ratio = map->base_map_ratio;
 	map->max_map_ratio = -10 * log(4) + 450;
 	map->min_map_ratio = ft_floatmax(map->map_ratio / 4, 1);
+	map->scale = 0.1;
 	get_extremums(vals);
 	return ;
 }

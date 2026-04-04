@@ -6,7 +6,7 @@
 /*   By: mzaian <mzaian@student.42perpignan.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 11:09:37 by mzaian            #+#    #+#             */
-/*   Updated: 2025/04/08 13:44:36 by mzaian           ###   ########.fr       */
+/*   Updated: 2026/04/04 07:53:38 by mzaian           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <fcntl.h>
 # include "../.mlx/mlx.h"
 # include <math.h>
+# include <sys/time.h>
 #include "../../libft/INCLUDES/libft.h"
 
 typedef struct s_interpolate

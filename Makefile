@@ -27,7 +27,7 @@ $(LIBNAME): $(OFILES) makelibft makemlx
 makemlx:
 	@if [ ! -f $(MLX_DIR)/libmlx.a ]; then \
 		printf "\rCompiling MLX..."; \
-		make -C $(MLX_DIR) >/dev/null 2>&1; \
+		cd .mlx && ./configure>/dev/null 2>&1 && cd .. ;\
 		printf "\r\033[34m          MLX compiled successfully!\033[0m\n\n"; \
 	fi
 

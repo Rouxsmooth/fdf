@@ -1,25 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   auto_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mzaian <mzaian@student.42perpignan.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/09 10:35:22 by mzaian            #+#    #+#             */
-/*   Updated: 2025/09/18 23:19:37 by mzaian           ###   ########.fr       */
+/*   Created: 2026/04/04 06:43:14 by mzaian            #+#    #+#             */
+/*   Updated: 2026/04/04 07:56:36 by mzaian           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../INCLUDES/fdf.h"
-
-int	main(int argc, char **argv)
+char *auto_map(char *map)
 {
-	t_vals	vals;
+	if (!ft_strncmp(map, "auto", ft_max(ft_strlen(map), 4)))
+		return (start_auto_choosing());
+	if (!ft_strncmp(map, "random", ft_max(ft_strlen(map), 4)))
+		return (start_auto_choosing());
+	if (!ft_strncmp(map, "ran", ft_max(ft_strlen(map), 4)))
+		return (start_auto_choosing());
+	return (NULL);
+}
 
-	if (argc != 2)
-		return (display_error(ft_ternary("Map missing!", "Too much parameters",
-					argc < 2)));
-	init_vals(&vals, argv[1]);
-	hooks_loop(&vals);
-	return (0);
+int start_auto_choosing()
+{
+	long int	time;
+
+	time = get_utime();
+	
 }

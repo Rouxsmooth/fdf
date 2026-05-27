@@ -6,7 +6,7 @@
 /*   By: mzaian <mzaian@student.42perpignan.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 16:04:24 by mzaian            #+#    #+#             */
-/*   Updated: 2026/04/04 06:56:26 by mzaian           ###   ########.fr       */
+/*   Updated: 2026/05/21 13:43:59 by mzaian           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,9 @@ int	get_map(char *map)
 	char	*mappath;
 	char	*temp;
 
-	if (auto_map(map))
-		;
+	fd = auto_map(map);
+	if (fd)
+		return (fd);
 	mappath = ft_strjoin(".maps/", map);
 	if (!mappath)
 		return (display_error("Allocation error"), -2);

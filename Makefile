@@ -7,7 +7,7 @@ INCLUDE_MLX = -L $(MLX_DIR) -l:libmlx.a -lX11 -lXext -lm
 CFLAGS = -Wall -Werror -Wextra -o3
 
 CFILES =	SRCS/HOOKS/hooks.c		SRCS/HOOKS/hooks_event.c	\
-			SRCS/PARSER/parser.c	SRCS/PARSER/parser_utils.c	\
+			SRCS/PARSER/auto_map.c	SRCS/PARSER/parser.c		SRCS/PARSER/parser_utils.c	\
 			SRCS/DRAW/draw_utils.c	SRCS/DRAW/line_utils.c		SRCS/DRAW/draw.c	SRCS/DRAW/color.c	\
 			SRCS/MAIN/main.c		SRCS/MAIN/init.c			SRCS/MAIN/quit.c
 OFILES = $(CFILES:.c=.o)
